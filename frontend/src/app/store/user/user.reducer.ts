@@ -6,13 +6,11 @@ export const userReducer = createReducer(
     
     initialState,
 
-    on(login , (state : UserState) : UserState => {
-        return state
-    }),
+    on(login , (state : UserState) : UserState => state),
+    
     on(logout, (state: UserState) : UserState => noUser),
 
     on(loginSuccess, (state: UserState, { user }) : any => {
-        console.log(user)
         return {
             initialized: true,
             user

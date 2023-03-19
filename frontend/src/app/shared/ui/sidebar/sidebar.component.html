@@ -1,0 +1,17 @@
+<div>
+    <h3>Homemed</h3>
+    <section class="menu">
+        <div class="item" [routerLink]="origin + item.link" *ngFor="let item of items">
+            <div class="icon-wrapper">
+                <mat-icon>{{ item.icon }}</mat-icon>
+                <span>{{ item.name }}</span>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="item" (click)="onLogout()">
+    <div class="icon-wrapper">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+    </div>
+</div>

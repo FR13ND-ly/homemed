@@ -2,7 +2,7 @@ import { User } from "@angular/fire/auth";
 
 export interface UserState {
     initialized: boolean;
-    user: User | null;
+    user: User | null | boolean;
 };
 
 export const initialState: UserState = {

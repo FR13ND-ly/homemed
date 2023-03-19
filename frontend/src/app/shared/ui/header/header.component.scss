@@ -1,0 +1,17 @@
+:host {
+    width: 100%;
+    gap: .5rem;
+    display: flex;
+    justify-content: right;
+    text-align: right;
+}
+.user {
+    display: flex;
+    flex-direction: column;
+}
+
+.avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}

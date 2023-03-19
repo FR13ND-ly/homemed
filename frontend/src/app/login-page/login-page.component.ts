@@ -14,7 +14,6 @@ export class LoginPageComponent {
   user$ = this.store.select(userSelector)
   
   onGoogleLogin() {
-    this.user$.subscribe((res)=> console.log(res))
     this.store.dispatch(login())
   }
 }

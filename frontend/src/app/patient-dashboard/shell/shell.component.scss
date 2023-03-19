@@ -1,0 +1,16 @@
+:host {
+    display: flex;
+    box-sizing: border-box;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.sidebar {
+    flex-shrink: 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
