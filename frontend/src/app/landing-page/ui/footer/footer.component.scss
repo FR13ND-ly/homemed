@@ -1,0 +1,32 @@
+:host {
+    display: grid;
+}
+
+.title {
+    font-size: 6rem;
+    line-height: normal;
+}
+
+.motto {
+    font-size: 1.2rem;
+    line-height: normal;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.links {
+    display: flex;
+}
+
+.list {
+    &__title {
+        font-weight: bold;
+    }
+    &__item {
+        list-style: none;
+        cursor: pointer;
+    }
+}

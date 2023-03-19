@@ -1,0 +1,11 @@
+$media-queries:(
+    "large": 1250px,
+    "medium": 900px,
+    "small": 600px
+);
+
+@mixin media-query($break-point) {
+    @media (max-width: map-get($media-queries, $break-point)) { 
+        @content; 
+    }
+}

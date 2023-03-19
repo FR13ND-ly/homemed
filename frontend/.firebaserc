@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "homemed-91755": {
+      "hosting": {
+        "frontend": [
+          "homemed-91755"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "homemed-91755"
+  }
+}

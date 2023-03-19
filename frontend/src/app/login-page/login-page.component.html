@@ -1,0 +1,29 @@
+<div class="primary">
+    <div class="back-button">
+        <a class="back-button__button" routerLink="/">Back on home page</a>
+    </div>
+    <h1>Welcome</h1>
+    <p>Please enter your details</p>
+    <form>
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter your email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Enter your password">
+        </mat-form-field>
+        <button>Sign In</button>
+    </form>
+    <p>Sign in with social</p>
+    <div class="social_login">
+        <button (click)="onGoogleLogin()">Google</button>
+        <button>Facebook</button>
+    </div>
+    <p>Forgot your password?</p>
+    <p>New to HomeMed? <a routerLink="/register">Sign Up for free</a></p>
+</div>
+<div class="illustration">
+    <p>HomeMed</p>
+    <img>
+</div>

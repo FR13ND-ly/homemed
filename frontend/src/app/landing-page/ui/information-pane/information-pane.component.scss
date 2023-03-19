@@ -1,0 +1,21 @@
+:host {
+    display: flex;
+}
+
+.primary-wrapper {
+    display: grid;
+}
+
+.secondary-wrapper {
+    display: flex;
+}
+
+.pane {
+    &__title {
+        font-weight: bold;
+    }
+    &__description {
+        font-size: 1.2rem;
+        line-height: normal;
+    }
+}
