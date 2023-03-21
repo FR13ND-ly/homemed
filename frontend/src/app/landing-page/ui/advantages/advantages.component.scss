@@ -1,3 +1,41 @@
+* {
+    font-family: 'Inter', 'Courier New', Courier, monospace;
+    color: #171717;
+}
+
+h2 {
+    font-size: 64px;
+    margin-bottom: 0px;
+}
+
+span {
+    color: #375974;
+}
+
 .wrapper {
     display: flex;
+    padding-bottom: 60px;
+    border-bottom: 1px solid #929292;
+}
+
+.pane {
+    display: flex;
+    flex-direction: column;
+}
+
+.pane__title {
+    color: #171717;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.pane__description {
+    font-weight: 300;
+    width: 80%;
+}
+
+.pane__image {
+    margin-inline-end: 34px;
+    width: 80%;
+    align-self: center;
 }
