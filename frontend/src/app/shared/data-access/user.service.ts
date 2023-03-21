@@ -6,31 +6,37 @@ import { map } from "rxjs/operators";
 import { Store } from '@ngrx/store';
 import { loginSuccess } from 'src/app/store/user/user.actions';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(public afAuth: AngularFireAuth, private store : Store, private router : Router) { }
+  readonly APIUrl = environment.apiURL + 'user/'
+
+  constructor(private http: HttpClient, public afAuth: AngularFireAuth, private store : Store, private router : Router) { }
 
   init() {
     this.afAuth.onAuthStateChanged((res : any) => {
-      let user : any = false
-      if (res) {
-        user = {
-          uid: res.uid,
-          email: res.email,
-          displayName: res.displayName,
-          photoURL: res.photoURL,
-        }
-      }
-      this.store.dispatch(loginSuccess({ user }))
+      if (!res) return;
+      this.http.get(`${this.APIUrl}login/${res.uid}/`).subscribe((user : any) => {
+        this.store.dispatch(loginSuccess({ user }))
+      })
     })
+  }
+
+  checkExist(user : any) {
+    return this.http.post(`${this.APIUrl}check/`, user)
   }
 
   GoogleAuth() {
     return this.AuthLogin(new GoogleAuthProvider());
+  }
+
+  register(user : any) {
+    return this.http.post(`${this.APIUrl}register/`, user)
   }
 
   AuthLogin(provider: any) {
@@ -42,7 +48,7 @@ export class UserService {
           displayName: res.user.displayName,
           photoURL: res.user.photoURL,
         }
-        this.router.navigateByUrl('/dashboard/doctor')
+        // this.router.navigateByUrl('/dashboard/doctor')
         return user;
       })
     )
@@ -50,6 +56,5 @@ export class UserService {
 
   logout() {
     this.afAuth.signOut();
-    this.router.navigateByUrl('/')
   }
 }

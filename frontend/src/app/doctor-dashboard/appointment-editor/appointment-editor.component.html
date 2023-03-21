@@ -1,0 +1,31 @@
+<form (submit)="updateAppointment(appointmentForm)" #appointmentForm="ngForm" class="add-appointment-form">
+    <h3>Add Appointment</h3>
+    <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput name="title" [(ngModel)]="data.title" placeholder="Please enter title">
+    </mat-form-field>
+    <section>
+        <mat-form-field appearance="outline">
+            <mat-label>Choose a date</mat-label>
+            <input matInput name="date" [(ngModel)]="data.scheduledDate" type="datetime-local">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Duration</mat-label>
+            <input matInput name="duration" [(ngModel)]="data.duration">
+        </mat-form-field>
+    </section>
+    <mat-form-field appearance="outline">
+        <mat-label>Patient</mat-label>
+        <mat-select name="patient" [(ngModel)]="data.patient.id">
+            <mat-option *ngFor="let patient of patients$ | async" [value]="patient.id">
+                {{ patient.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Details</mat-label>
+        <textarea name="details" [(ngModel)]="data.description" matInput></textarea>
+    </mat-form-field>
+    <mat-checkbox name="important" [(ngModel)]="data.important">Important</mat-checkbox>
+    <button>Save changes</button>
+</form>

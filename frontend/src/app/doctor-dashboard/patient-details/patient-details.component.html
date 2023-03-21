@@ -1,0 +1,24 @@
+<span routerLink="/dashboard/doctor/patients">< Back</span>
+<ng-container *ngIf="patient$ | async as patient">
+    <section class="patient">
+        <img class="patient__image" [src]="patient.imageUrl">
+        <div>
+            <h1>{{patient.name}}</h1>
+            <p>{{patient.birthday}}</p>
+        </div>
+    </section>
+    <div class="details">
+        <h2>Details</h2>
+        <p>Address:{{patient.address}}</p>
+        <p>Email: {{patient.email}}</p>
+        <p>Phone: {{patient.phone}}</p>
+    </div>
+    <div>
+        <h2>Change Doctor</h2>
+        <mat-form-field >
+            <mat-label>Doctor's ID</mat-label>
+            <input [(ngModel)]="newDoctorUID" matInput placeholder="Enter Doctor's ID">
+        </mat-form-field>
+        <button (click)="onChangeDoctor(patient.uid)">Change</button>
+    </div>
+</ng-container>

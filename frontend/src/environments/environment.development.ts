@@ -7,5 +7,5 @@ export const environment = {
         authDomain: 'homemed-91755.firebaseapp.com',
         messagingSenderId: '323693804520',
     },
-    apiURL : "",
+    apiURL : "http://127.0.0.1:8000/api/",
 };

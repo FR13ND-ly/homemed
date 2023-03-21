@@ -1,1 +1,25 @@
-<p>settings works!</p>
+<h1>User information</h1>
+<p>Here you can update your user information.</p>
+<p *ngIf="user$ | async as user">Your doctor code: {{ user.uid }}</p>
+<ng-container *ngIf="doctor$ | async as doctor">
+    <mat-form-field appearance="outline">
+        <mat-label>Full Name</mat-label>
+        <input [(ngModel)]="doctor.name" matInput placeholder="Please enter your name">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Address</mat-label>
+        <input [(ngModel)]="doctor.address" matInput placeholder="Please enter your address">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Phone number</mat-label>
+        <input [(ngModel)]="doctor.phone" matInput placeholder="Please enter your phone number">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Choose a date</mat-label>
+        <input [(ngModel)]="doctor.birthday" matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker  #picker></mat-datepicker>
+    </mat-form-field>
+    <input type="file" (change)="onChangeAvatar($event)">
+    <button (click)="onUpdateDoctor(doctor)">Save changes</button>
+</ng-container>

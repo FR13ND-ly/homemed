@@ -3,27 +3,39 @@
         <a class="back-button__button" routerLink="/">Back on home page</a>
     </div>
     <h1>Welcome</h1>
-    <p>Please enter your details</p>
-    <form>
-        <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput placeholder="Enter your email">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput placeholder="Enter your password">
-        </mat-form-field>
-        <button>Sign In</button>
-    </form>
-    <p>Sign in with social</p>
-    <div class="social_login">
+    <p>Lorem ipsum dolor sit amet</p>
+    <ng-container *ngIf="login else register">
         <button (click)="onGoogleLogin()">Google</button>
-        <button>Facebook</button>
-    </div>
-    <p>Forgot your password?</p>
-    <p>New to HomeMed? <a routerLink="/register">Sign Up for free</a></p>
+    </ng-container>
 </div>
 <div class="illustration">
     <p>HomeMed</p>
     <img>
 </div>
+<ng-template #register>
+    <div (click)="user.type='doctor'">Doctor</div>
+    <div (click)="user.type='patient'">Patient</div>
+    <mat-form-field appearance="outline" *ngIf="user.type == 'patient'">
+        <input [(ngModel)]="user.invitationCode" matInput placeholder="Please enter invitation code">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Full Name</mat-label>
+        <input [(ngModel)]="user.name" matInput placeholder="Please enter your name">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Address</mat-label>
+        <input [(ngModel)]="user.address" matInput placeholder="Please enter your address">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Phone number</mat-label>
+        <input [(ngModel)]="user.phone" matInput placeholder="Please enter your phone number">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Choose a date</mat-label>
+        <input [(ngModel)]="user.birthday" matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <input *ngIf="user.type == 'doctor'" type="file" (input)="onUploadValidationImage($event)">
+    <button (click)="onRegister()">Register</button>
+</ng-template>

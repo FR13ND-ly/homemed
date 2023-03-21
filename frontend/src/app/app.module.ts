@@ -11,6 +11,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireModule } from '@angular/fire/compat';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { reducers } from './store/app.reducers';
+import { HttpClientModule } from '@angular/common/http';
+import { getDatabase, provideDatabase } from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -21,8 +23,10 @@ import { reducers } from './store/app.reducers';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     StoreModule.forRoot(reducers),
     AngularFireModule.initializeApp(environment.firebase),
+    provideDatabase(() => getDatabase()),
     AngularFireAuthModule,
     EffectsModule.forRoot([UserEffects])
   ],

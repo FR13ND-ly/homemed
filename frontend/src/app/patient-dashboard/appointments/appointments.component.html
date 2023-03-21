@@ -1,1 +1,16 @@
-<p>appointments works!</p>
+<h2>Appointments</h2>
+<p>Here you can see your schedule</p>
+<div class="appointments">
+    <div class="appointment" *ngFor="let appointment of appointments$ | async">
+        <div class="appointment__header">
+            <h3 class="appointment__title">{{ appointment.title }}</h3>
+        </div>
+        <div class="appointment__patient">
+            <img class="appointment__patient-image" [src]="appointment.doctor.imageUrl">
+            <span class="appointment__patient-name">{{ appointment.doctor.name }}</span>
+        </div>
+        <span>{{ appointment.scheduledDate | date : 'medium' }} | {{ appointment.duration }} min</span>
+        <b>Details</b>
+        <p>{{ appointment.description }}</p>
+    </div>
+</div>

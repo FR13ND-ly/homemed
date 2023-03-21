@@ -18,11 +18,6 @@ export class ShellComponent {
       link: '/appointments'
     },
     {
-      name: 'Messages',
-      icon: 'messages',
-      link: '/messages'
-    },
-    {
       name: 'Settings',
       icon: 'settings',
       link: '/settings'

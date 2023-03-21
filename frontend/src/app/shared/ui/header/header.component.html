@@ -1,7 +1,7 @@
 <ng-container *ngIf="user$ | async as user">
     <section class="user">
-        <span class="user__name">{{ user.displayName }}</span>
-        <span class="user__email">{{ user.email }}</span>
+        <span class="user__name">{{ user.name }}</span>
+        <span class="user__email">{{ user.type }}</span>
     </section>
-    <img class="avatar" [src]="user.photoURL">
+    <img class="avatar" [src]="user.imageUrl">
 </ng-container>

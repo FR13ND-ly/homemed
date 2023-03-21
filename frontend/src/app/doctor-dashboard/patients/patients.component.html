@@ -1,1 +1,10 @@
-<p>patients works!</p>
+<h2>Patients Manager</h2>
+<p>Here you can manage your patients</p>
+<button (click)="openDialog()">Invite patient</button>
+<div>
+    <div [routerLink]="['/dashboard/doctor/patient', patient.uid]" *ngFor="let patient of patients$ | async">
+        <img [src]="patient.imageUrl">
+        <p>{{patient.name}}</p>
+        <p>{{patient.address}}</p>
+    </div>
+</div>
