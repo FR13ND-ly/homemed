@@ -17,6 +17,8 @@ import { AddAppointmentComponent } from '../add-appointment/add-appointment.comp
 import { PatientDetailsComponent } from '../patient-details/patient-details.component';
 import { ConsultationsComponent } from '../consultations/consultations.component';
 import { TransferPatientDialogComponent } from '../transfer-patient-dialog/transfer-patient-dialog.component';
+import { EmptyTextPipe } from 'src/app/core/pipes/empty-text.pipe';
+import { ValidationErrorComponent } from '../validation-error/validation-error.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { TransferPatientDialogComponent } from '../transfer-patient-dialog/trans
     AddAppointmentComponent,
     PatientDetailsComponent,
     ConsultationsComponent,
-    TransferPatientDialogComponent
+    TransferPatientDialogComponent,
+    ValidationErrorComponent
   ],
   imports: [
     CommonModule,
@@ -39,6 +42,7 @@ import { TransferPatientDialogComponent } from '../transfer-patient-dialog/trans
     FormsModule,
     SidebarComponent,
     HeaderComponent,
+    EmptyTextPipe,
     RouterModule.forChild([
       { path: '', component: ShellComponent, children: [
         { path: '', component: DashboardComponent },
@@ -47,6 +51,7 @@ import { TransferPatientDialogComponent } from '../transfer-patient-dialog/trans
         { path: 'settings', component: SettingsComponent },
         { path: 'consultations', component: ConsultationsComponent },
         { path: 'patient/:uid', component: PatientDetailsComponent },
+        { path: 'error', component: ValidationErrorComponent },
       ] }
     ])
   ],

@@ -11,6 +11,7 @@ import { MaterialModule } from 'src/app/shared/feature/material.module';
 import { FormsModule } from '@angular/forms';
 import { ConsultationsComponent } from '../consultations/consultations.component';
 import { MedicalRecordComponent } from '../medical-record/medical-record.component';
+import { EmptyTextPipe } from 'src/app/core/pipes/empty-text.pipe';
 
 
 
@@ -29,6 +30,7 @@ import { MedicalRecordComponent } from '../medical-record/medical-record.compone
     CommonModule,
     MaterialModule,
     FormsModule,
+    EmptyTextPipe,
     RouterModule.forChild([
       { path: '', component: ShellComponent, children: [
         { path: '', component: DashboardComponent },

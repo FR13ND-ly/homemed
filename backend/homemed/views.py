@@ -76,6 +76,73 @@ def get_user(request, uid):
     }
     return JsonResponse(response)
 
+def doctor_dashboard(request, uid):
+    profile = Profile.objects.get(uid=uid)
+    doctor = Doctor.objects.get(id=profile.fid)
+    response = {
+        "uid" : uid,
+        "name" : profile.name,
+        "imageUrl" : get_file(profile.avatarId),
+        "validated" : doctor.validated,
+        "patients" : [],
+    }
+    patients = Patient.objects.filter(doctorId=doctor.id)
+    for patient in patients:
+        response["patients"].append({
+            "id" : patient.id,
+            "name" : patient.name,
+            "imageUrl" : get_file(patient.avatarId),
+        })
+    return JsonResponse(response)
+
+
+def patient_dashboard(request, uid):
+    profile = Profile.objects.get(uid=uid)
+    patient = Patient.objects.get(id=profile.fid)
+    response = {
+        "uid" : uid,
+        "name" : profile.name,
+        "imageUrl" : get_file(profile.avatarId),
+        "doctor" : {
+            "id" : patient.doctorId,
+            "name" : Profile.objects.filter(type="doctor").get(fid=patient.doctorId).name,
+            "imageUrl" : get_file(Profile.objects.filter(type="doctor").get(fid=patient.doctorId).avatarId),
+        },
+        "appointments" : [],
+        "consultations" : [],
+    }
+    appointments = Appointment.objects.filter(patientId=patient.id).order_by('-scheduledDate')
+    for appointment in appointments:
+        response["appointments"].append({
+            "id" : appointment.id,
+            "scheduledDate" : appointment.scheduledDate,
+            "title" : appointment.title,
+            "doctor" : {
+                "name" : Profile.objects.filter(type="doctor").get(fid=appointment.doctorId).name,
+                "imageUrl" : get_file(Profile.objects.filter(type="doctor").get(fid=appointment.doctorId).avatarId),
+            },
+            "duration" : appointment.duration,
+            "description" : appointment.description,
+            "important" : appointment.important,
+            "date" : appointment.date,
+        })
+    consultations = Consultation.objects.filter(patientId=patient.id).order_by('-scheduledDate')
+    for consultation in consultations:
+        response["consultations"].append({
+            "id" : consultation.id,
+            "scheduledDate" : consultation.scheduledDate,
+            "title" : consultation.title,
+            "doctor" : {
+                "name" : Profile.objects.filter(type="doctor").get(fid=consultation.doctorId).name,
+                "imageUrl" : get_file(Profile.objects.filter(type="doctor").get(fid=consultation.doctorId).avatarId),
+            },
+            "duration" : consultation.duration,
+            "description" : consultation.description,
+            "important" : consultation.important,
+            "date" : consultation.date,
+        })
+    return JsonResponse(response)
+
 def get_appointments(request, uid):
     profile = Profile.objects.get(uid=uid)
     if (profile.type == "doctor"):
@@ -156,6 +223,7 @@ def create_doctor(data):
     doctor = Doctor.objects.create(
         birthday = data['birthday'],
         address = data['address'],
+        county = data['county'],
         phone = data['phone'],
         email = data['email'],
         validationImageId = data['validationImageId'],
@@ -173,14 +241,19 @@ def get_doctor(request, uid):
         "birthday" : doctor.birthday,
         "address" : doctor.address,
         "phone" : doctor.phone,
+        "county" : doctor.county,
         "email" : doctor.email,
         "avatarId" : profile.avatarId,
     }
     return JsonResponse(response)
 
+def doctor_validated(request, uid):
+    doctor = Doctor.objects.get(id=Profile.objects.get(uid=uid).fid)
+    return JsonResponse({"validated" : doctor.validated})
+
 @csrf_exempt
 def update_doctor(request, uid):
-    data = JSONParser().parse(request)
+    data = JSONParser().parse(request)  
     profile = Profile.objects.get(uid=uid)
     profile.name = data['name']
     profile.avatarId = data['avatarId']
@@ -188,6 +261,7 @@ def update_doctor(request, uid):
     doctor = Doctor.objects.get(id=profile.fid)
     doctor.birthday = data['birthday']
     doctor.address = data['address']
+    doctor.county = data['county']
     doctor.phone = data['phone']
     doctor.email = data['email']
     doctor.save()
@@ -197,6 +271,7 @@ def create_patient(data):
     patient = Patient.objects.create(
         birthday = data['birthday'],
         address = data['address'],
+        county = data['county'],
         phone = data['phone'],
         email = data['email'],
         doctorId = data['doctorId']
@@ -230,6 +305,7 @@ def get_patient(request, uid):
         "address" : patient.address,
         "phone" : patient.phone,
         "email" : patient.email,
+        "county" : patient.county,
         "avatarId" : profile.avatarId,
         "imageUrl" : get_file(profile.avatarId),
     }
@@ -254,6 +330,7 @@ def update_patient(request, uid):
     patient.birthday = data['birthday']
     patient.address = data['address']
     patient.phone = data['phone']
+    patient.county = data['county']
     patient.email = data['email']
     patient.save()
     return JsonResponse({"success": True})
@@ -326,6 +403,7 @@ def get_medical_record(request, uid):
     patient = Patient.objects.get(id=profile.fid)
     medicalRecord = MedicalRecord.objects.get(patientId=patient.id)
     response = {
+        "uid" : uid,
         "name" : profile.name,
         "imageUrl" : get_file(profile.avatarId),
         "birthday" : patient.birthday,
@@ -337,9 +415,9 @@ def get_medical_record(request, uid):
         "allergies" : medicalRecord.allergies,
         "chronicDiseases" : medicalRecord.chronicDiseases,
         "currentMedications" : medicalRecord.currentMedications,
+        "surgeries" : medicalRecord.surgeries,
         "familyHistory" : medicalRecord.familyHistory,
     }
-    print(response)
     return JsonResponse(response)
 
 @csrf_exempt

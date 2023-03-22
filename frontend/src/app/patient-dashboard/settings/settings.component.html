@@ -1,16 +1,24 @@
 <h1>User information</h1>
 <p>Here you can update your user information.</p>
-
-
 <ng-container *ngIf="patient$ | async as patient">
     <mat-form-field appearance="outline">
         <mat-label>Full Name</mat-label>
         <input [(ngModel)]="patient.name" matInput placeholder="Please enter your name">
     </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Address</mat-label>
-        <input [(ngModel)]="patient.address" matInput placeholder="Please enter your address">
-    </mat-form-field>
+    <div class="wrapper">
+        <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
+            <input [(ngModel)]="patient.address" matInput placeholder="Please enter your address">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>County</mat-label>
+            <mat-select [(ngModel)]="patient.county">
+                <mat-option *ngFor="let county of counties" [value]="county">
+                    {{ county }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
     <mat-form-field appearance="outline">
         <mat-label>Phone number</mat-label>
         <input [(ngModel)]="patient.phone" matInput placeholder="Please enter your phone number">

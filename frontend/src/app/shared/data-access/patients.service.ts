@@ -27,4 +27,8 @@ export class PatientsService {
   getPatientConsultations(uid : any) {
     return this.http.get(`${this.apiURL}consultations/get/${uid}/`)
   }
+
+  getMedicalRecords(uid : any) {
+    return this.http.get(`${this.apiURL}medical-records/get/${uid}/`)
+  }
 }

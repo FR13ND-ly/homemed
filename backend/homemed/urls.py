@@ -2,11 +2,14 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    
+    #dashboard
+    path('doctors/dashboard/', views.doctor_dashboard),
+    path('patients/dashboard/', views.patient_dashboard),
     #patients
     path('patients/get/<str:uid>/', views.get_patient),
     path('patients/update/<str:uid>/', views.update_patient),
     path('patients/transfer/', views.transfer_patient),
+    path('patients/medical-records/get/<str:uid>/', views.get_medical_record),
     path('patients/consultations/get/<str:uid>/', views.get_consultations_by_uid),
     #appointments
     path('appointments/all/<str:uid>/', views.get_appointments),
@@ -23,6 +26,7 @@ urlpatterns = [
     path('doctor/medical-records/get/<str:uid>/', views.get_medical_record),
     path('doctor/medical-records/update/<str:uid>/', views.update_medical_record),
     path('doctor/update/<str:uid>/', views.update_doctor),
+    path('doctor/validation/<str:uid>/', views.doctor_validated),
     #consultations
     path('doctor/consultations/get/<str:id>/', views.get_consultations),
     path('doctor/consultations/add/', views.add_consultation),

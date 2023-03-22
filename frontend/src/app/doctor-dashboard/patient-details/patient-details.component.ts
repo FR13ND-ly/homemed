@@ -21,6 +21,8 @@ export class PatientDetailsComponent {
 
   newDoctorUID : any = ""
 
+  editMode : boolean = false
+
   patient$ : Observable<any> = this.route.paramMap.pipe(
     switchMap((params) => this.doctorService.getMedicalRecords(params.get('uid'))
   ));
@@ -33,4 +35,10 @@ export class PatientDetailsComponent {
     this.dialog.open(TransferPatientDialogComponent, { data })
   }
 
+  onUpdateChanges(patient : any) {
+    this.doctorService.updateMedicalRecords(patient).subscribe(() => {
+      this.editMode = false
+    })
+    
+  }
 }

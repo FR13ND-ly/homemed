@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { filter, Observable, switchMap } from 'rxjs';
 import { DoctorService } from 'src/app/shared/data-access/doctor.service';
 import { FilesService } from 'src/app/shared/data-access/files.service';
+import { counties } from 'src/app/shared/utils/romanian-counties';
 import { getUser } from 'src/app/store/user/user.selector';
 
 @Component({
@@ -15,6 +16,8 @@ export class SettingsComponent {
   constructor(private store: Store, private doctorService: DoctorService, private filesService: FilesService) { }
   
   avatarId! : number
+
+  counties = [...counties]
 
   user$ : Observable<any> = this.store.select(getUser).pipe(
     filter((user: any) => user != null)

@@ -31,11 +31,19 @@ export class DoctorService {
     return this.http.get(`${this.apiURL}medical-records/get/${uid}/`)
   }
 
+  updateMedicalRecords(medicalRecords : any) {
+    return this.http.put(`${this.apiURL}medical-records/update/${medicalRecords.uid}/`, medicalRecords)
+  }
+
   addConsultation(consultation : any) {
     return this.http.post(`${this.apiURL}consultations/add/`, consultation)
   }
 
   deleteConsultation(consultationId : any) {
     return this.http.delete(`${this.apiURL}consultations/delete/${consultationId}/`)
+  }
+
+  getValidation(uid : any) {
+    return this.http.get(`${this.apiURL}validation/${uid}/`)
   }
 }

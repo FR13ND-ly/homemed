@@ -20,6 +20,9 @@ export class SidebarComponent {
   items : any = []
 
   @Input()
+  validated : boolean = true
+
+  @Input()
   origin : string = ''
 
   onLogout() {

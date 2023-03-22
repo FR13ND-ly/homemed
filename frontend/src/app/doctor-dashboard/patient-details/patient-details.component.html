@@ -1,23 +1,45 @@
-<span routerLink="/dashboard/doctor/patients">< Back</span>
 <ng-container *ngIf="patient$ | async as patient">
     <section class="patient">
         <img class="patient__image" [src]="patient.imageUrl">
         <div>
             <h1>{{patient.name}}</h1>
             <p>{{patient.birthday}}</p>
+            <p>Address: {{patient.address}}, {{patient.county}}</p>
+            <p>Email: {{patient.email}}</p>
+            <p>Phone: {{patient.phone}}</p>
         </div>
     </section>
     <div class="details">
-        <h2>Details</h2>
-        <p>Address:{{patient.address}}</p>
-        <p>Email: {{patient.email}}</p>
-        <p>Phone: {{patient.phone}}</p>
-        <div>
-            <p>Current Medications: {{ patient.currentMedications ?? "No information" }}</p>
-            <p>Chronic Diseases: {{ patient.chronicDiseases ?? "No information" }}</p>
-            <p>Allergies: {{ patient.allergies ?? "No information" }}</p>
-            <p>Surgeries: {{ patient.surgeries ?? "No information" }}</p>
-            <p>Family History: {{ patient.familyHistory ?? "No information" }}</p>
+        <div *ngIf="editMode">
+            <mat-form-field appearance="outline">
+                <mat-label>Current Medications</mat-label>
+                <textarea matInput [(ngModel)]="patient.currentMedications"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Chronic Diseases</mat-label>
+                <textarea matInput [(ngModel)]="patient.chronicDiseases"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Allergies</mat-label>
+                <textarea matInput [(ngModel)]="patient.allergies"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Surgeries</mat-label>
+                <textarea matInput [(ngModel)]="patient.surgeries"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Family History</mat-label>
+                <textarea matInput [(ngModel)]="patient.familyHistory"></textarea>
+            </mat-form-field>
+            <button (click)="onUpdateChanges(patient)">Save</button>            
+        </div>
+        <div *ngIf="!editMode">
+            <p>Current Medications: {{ patient.currentMedications | emptyText }}</p>
+            <p>Chronic Diseases: {{ patient.chronicDiseases | emptyText }}</p>
+            <p>Allergies: {{ patient.allergies | emptyText }}</p>
+            <p>Surgeries: {{ patient.surgeries | emptyText }}</p>
+            <p>Family History: {{ patient.familyHistory | emptyText }}</p>
+            <button (click)="editMode=true">Edit</button>
         </div>
     </div>
     <button (click)="onChangeDoctor(patient.uid)">Transfer patient</button>
