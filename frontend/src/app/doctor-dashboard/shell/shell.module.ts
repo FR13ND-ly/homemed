@@ -15,6 +15,8 @@ import { FormsModule } from '@angular/forms';
 import { AppointmentEditorComponent } from '../appointment-editor/appointment-editor.component';
 import { AddAppointmentComponent } from '../add-appointment/add-appointment.component';
 import { PatientDetailsComponent } from '../patient-details/patient-details.component';
+import { ConsultationsComponent } from '../consultations/consultations.component';
+import { TransferPatientDialogComponent } from '../transfer-patient-dialog/transfer-patient-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { PatientDetailsComponent } from '../patient-details/patient-details.comp
     PatientsComponent,
     AppointmentEditorComponent,
     AddAppointmentComponent,
-    PatientDetailsComponent
+    PatientDetailsComponent,
+    ConsultationsComponent,
+    TransferPatientDialogComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +45,7 @@ import { PatientDetailsComponent } from '../patient-details/patient-details.comp
         { path: 'appointments', component: AppointmentsComponent },
         { path: 'patients', component: PatientsComponent },
         { path: 'settings', component: SettingsComponent },
+        { path: 'consultations', component: ConsultationsComponent },
         { path: 'patient/:uid', component: PatientDetailsComponent },
       ] }
     ])

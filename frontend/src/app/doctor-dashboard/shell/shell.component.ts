@@ -23,6 +23,11 @@ export class ShellComponent {
       link: '/appointments'
     },
     {
+      name: 'Consultations',
+      icon: 'assignment',
+      link: '/consultations'
+    },
+    {
       name: 'Settings',
       icon: 'settings',
       link: '/settings'

@@ -1,0 +1,33 @@
+<h1>Consultations</h1>
+<p>Here you can manage consultations of your patients</p>
+<div class="wrapper">
+    <div class="user-list" *ngIf="patients$ | async as patients">
+        <img 
+            class="user" 
+            [src]="patient.imageUrl" 
+            *ngFor="let patient of patients; let i = index"
+            [class.user--selected]="i == (selectedIndex$ | async)"
+            (click)="selectedIndex$.next(i)">
+    </div>
+    <div class="wrapper" *ngIf="consultations$ | async as consultations">
+        <section class="consultations" >
+            <article class="consultation" *ngFor="let consultation of consultations">
+                <div class="wrapper">
+                    <button class="">Download</button>
+                    <div class="consultation__data">
+                        <p>{{consultation.date}}</p>
+                        <section class="doctor">
+                            <img class="doctor__image" [src]="consultation.doctor.imageUrl">
+                            <p>{{consultation.doctor.name}}</p>
+                        </section>
+                    </div>
+                </div>
+                <button (click)="onDeleteConsultation(consultation.id)">Delete</button>
+            </article>
+        </section>
+        <section class="add-consultation">
+            <h2>Add consultation</h2>
+            <input type="file" (input)="onAddConsultation($event)">
+        </section>
+    </div>
+</div>

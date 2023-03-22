@@ -13,8 +13,10 @@
     <img>
 </div>
 <ng-template #register>
-    <div (click)="user.type='doctor'">Doctor</div>
-    <div (click)="user.type='patient'">Patient</div>
+    <div>
+        <div (click)="user.type='doctor'">Doctor</div>
+        <div (click)="user.type='patient'">Patient</div>
+    </div>
     <mat-form-field appearance="outline" *ngIf="user.type == 'patient'">
         <input [(ngModel)]="user.invitationCode" matInput placeholder="Please enter invitation code">
     </mat-form-field>
@@ -22,13 +24,23 @@
         <mat-label>Full Name</mat-label>
         <input [(ngModel)]="user.name" matInput placeholder="Please enter your name">
     </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Address</mat-label>
-        <input [(ngModel)]="user.address" matInput placeholder="Please enter your address">
-    </mat-form-field>
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Address, City</mat-label>
+            <input [(ngModel)]="user.address" matInput placeholder="Please enter your address">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>County</mat-label>
+            <mat-select [(ngModel)]="user.county">
+                <mat-option *ngFor="let county of counties" [value]="county">
+                    {{ county }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
     <mat-form-field appearance="outline">
         <mat-label>Phone number</mat-label>
-        <input [(ngModel)]="user.phone" matInput placeholder="Please enter your phone number">
+        <input [(ngModel)]="user.phone" matInput type="tel" placeholder="Please enter your phone number">
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Choose a date</mat-label>

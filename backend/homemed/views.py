@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
-from .models import Profile, File, Doctor, Patient, Invitation, Appointment
+from .models import Profile, File, Doctor, Patient, Invitation, Appointment, Consultation, MedicalRecord
 import os
 from django.core.files import File as fileReader
 import urllib.request
@@ -51,6 +51,7 @@ def register(request):
         invitation = Invitation.objects.get(code=data['invitationCode'])
         data['doctorId'] = invitation.doctorId
         profile.fid = create_patient(data)
+        create_medical_record(profile.fid)
         invitation.delete()
     profile.save()
     response = {
@@ -267,6 +268,93 @@ def create_invitation(request, uid):
     invitation.save()
     return JsonResponse(invitation.code, safe=False)
 
+
+def get_consultations(request, id):
+    consultations = Consultation.objects.filter(patientId=id)
+    response = []
+    for consultation in consultations:
+        response.append({
+            "id" : consultation.id,
+            "doctor" : {
+                "name" : Profile.objects.filter(type="doctor").get(fid=consultation.doctorId).name,
+                "imageUrl" : get_file(Profile.objects.filter(type="doctor").get(fid=consultation.doctorId).avatarId),
+            },
+            "date" : consultation.date,
+            "imageUrl" : get_file(consultation.fileId)
+        })
+    return JsonResponse(response, safe=False)
+
+def get_consultations_by_uid(request, uid):
+    consultations = Consultation.objects.filter(patientId=Profile.objects.get(uid=uid).fid)
+    response = []
+    for consultation in consultations:
+        response.append({
+            "id" : consultation.id,
+            "doctor" : {
+                "name" : Profile.objects.filter(type="doctor").get(fid=consultation.doctorId).name,
+                "imageUrl" : get_file(Profile.objects.filter(type="doctor").get(fid=consultation.doctorId).avatarId),
+            },
+            "date" : consultation.date,
+            "imageUrl" : get_file(consultation.fileId)
+        })
+    return JsonResponse(response, safe=False)
+
+@csrf_exempt
+def add_consultation(request):
+    data = JSONParser().parse(request)
+    consultation = Consultation.objects.create(
+        patientId = data['patientId'],
+        doctorId = Patient.objects.get(id=data['patientId']).doctorId,
+        fileId = data['fileId'],
+    )
+    consultation.save()
+    return JsonResponse(consultation.id, safe=False)
+
+@csrf_exempt
+def delete_consultation(request, id):
+    consultation = Consultation.objects.get(id=id)
+    consultation.delete()
+    return JsonResponse({"success": True})
+
+def create_medical_record(id):
+    medicalRecord = MedicalRecord.objects.create(patientId = id)
+    medicalRecord.save()
+    return medicalRecord.id
+
+def get_medical_record(request, uid):
+    profile = Profile.objects.get(uid=uid)
+    patient = Patient.objects.get(id=profile.fid)
+    medicalRecord = MedicalRecord.objects.get(patientId=patient.id)
+    response = {
+        "name" : profile.name,
+        "imageUrl" : get_file(profile.avatarId),
+        "birthday" : patient.birthday,
+        "address" : patient.address,
+        "email" : patient.email,
+        "phone" : patient.phone,
+        "county" : patient.county,
+        "patientId" : medicalRecord.patientId,
+        "allergies" : medicalRecord.allergies,
+        "chronicDiseases" : medicalRecord.chronicDiseases,
+        "currentMedications" : medicalRecord.currentMedications,
+        "familyHistory" : medicalRecord.familyHistory,
+    }
+    print(response)
+    return JsonResponse(response)
+
+@csrf_exempt
+def update_medical_record(request, uid):
+    data = JSONParser().parse(request)
+    profile = Profile.objects.get(uid=uid)
+    patient = Patient.objects.get(id=profile.fid)
+    medicalRecord = MedicalRecord.objects.get(patientId=patient.id)
+    medicalRecord.allergies = data['allergies']
+    medicalRecord.chronicDiseases = data['chronicDiseases']
+    medicalRecord.currentMedications = data['currentMedications']
+    medicalRecord.familyHistory = data['familyHistory']
+    medicalRecord.surgeries = data['surgeries']
+    medicalRecord.save()
+    return JsonResponse({"success": True})
 
 @csrf_exempt
 def upload_file(request):

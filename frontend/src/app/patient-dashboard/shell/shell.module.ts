@@ -9,6 +9,8 @@ import { HeaderComponent } from 'src/app/shared/ui/header/header.component';
 import { SidebarComponent } from 'src/app/shared/ui/sidebar/sidebar.component';
 import { MaterialModule } from 'src/app/shared/feature/material.module';
 import { FormsModule } from '@angular/forms';
+import { ConsultationsComponent } from '../consultations/consultations.component';
+import { MedicalRecordComponent } from '../medical-record/medical-record.component';
 
 
 
@@ -18,6 +20,8 @@ import { FormsModule } from '@angular/forms';
     AppointmentsComponent,
     DashboardComponent,
     SettingsComponent,
+    ConsultationsComponent,
+    MedicalRecordComponent,
   ],
   imports: [
     HeaderComponent,
@@ -29,6 +33,8 @@ import { FormsModule } from '@angular/forms';
       { path: '', component: ShellComponent, children: [
         { path: '', component: DashboardComponent },
         { path: 'appointments', component: AppointmentsComponent },
+        { path: 'consultations', component: ConsultationsComponent },
+        { path: 'medical-record', component: MedicalRecordComponent },
         { path: 'settings', component: SettingsComponent },
       ] }
     ])

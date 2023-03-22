@@ -12,13 +12,13 @@
         <p>Address:{{patient.address}}</p>
         <p>Email: {{patient.email}}</p>
         <p>Phone: {{patient.phone}}</p>
+        <div>
+            <p>Current Medications: {{ patient.currentMedications ?? "No information" }}</p>
+            <p>Chronic Diseases: {{ patient.chronicDiseases ?? "No information" }}</p>
+            <p>Allergies: {{ patient.allergies ?? "No information" }}</p>
+            <p>Surgeries: {{ patient.surgeries ?? "No information" }}</p>
+            <p>Family History: {{ patient.familyHistory ?? "No information" }}</p>
+        </div>
     </div>
-    <div>
-        <h2>Change Doctor</h2>
-        <mat-form-field >
-            <mat-label>Doctor's ID</mat-label>
-            <input [(ngModel)]="newDoctorUID" matInput placeholder="Enter Doctor's ID">
-        </mat-form-field>
-        <button (click)="onChangeDoctor(patient.uid)">Change</button>
-    </div>
+    <button (click)="onChangeDoctor(patient.uid)">Transfer patient</button>
 </ng-container>

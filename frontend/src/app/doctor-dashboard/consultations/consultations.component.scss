@@ -1,0 +1,43 @@
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.user {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    opacity: .2;
+    cursor: pointer;
+    &--selected {
+        opacity: 1;
+    }
+}
+
+.wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.consultation {
+    display: flex;
+    align-items: flex-start;
+    &__data {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.doctor {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    &__image {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+    }
+
+}

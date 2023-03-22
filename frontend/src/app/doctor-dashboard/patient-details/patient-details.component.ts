@@ -4,6 +4,8 @@ import { DoctorService } from 'src/app/shared/data-access/doctor.service';
 import { PatientsService } from 'src/app/shared/data-access/patients.service';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { TransferPatientDialogComponent } from '../transfer-patient-dialog/transfer-patient-dialog.component';
 
 @Component({
   selector: 'app-patient-details',
@@ -13,13 +15,14 @@ import { Observable } from 'rxjs';
 export class PatientDetailsComponent {
   constructor(
     private route: ActivatedRoute,
-    private patientService: PatientsService
+    private doctorService: DoctorService,
+    public dialog: MatDialog
   ) {}
 
   newDoctorUID : any = ""
 
   patient$ : Observable<any> = this.route.paramMap.pipe(
-    switchMap((params) => this.patientService.getPatient(params.get('uid'))
+    switchMap((params) => this.doctorService.getMedicalRecords(params.get('uid'))
   ));
 
   onChangeDoctor(patientUID : any) {
@@ -27,7 +30,7 @@ export class PatientDetailsComponent {
       patientUID,
       doctorUID: this.newDoctorUID
     }
-    this.patientService.transferPatient(data).subscribe()
+    this.dialog.open(TransferPatientDialogComponent, { data })
   }
 
 }

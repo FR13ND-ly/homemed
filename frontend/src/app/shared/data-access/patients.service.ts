@@ -23,4 +23,8 @@ export class PatientsService {
   transferPatient(data : any) {
     return this.http.post(`${this.apiURL}transfer/`, data)
   }
+
+  getPatientConsultations(uid : any) {
+    return this.http.get(`${this.apiURL}consultations/get/${uid}/`)
+  }
 }

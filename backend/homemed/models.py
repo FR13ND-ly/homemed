@@ -12,6 +12,7 @@ class Profile(models.Model):
 class Doctor(models.Model):
     birthday = models.DateTimeField()
     address = models.CharField(max_length=255)
+    county = models.CharField(max_length=255)
     phone = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     validated = models.BooleanField(default=False)
@@ -20,6 +21,7 @@ class Doctor(models.Model):
 class Patient(models.Model):
     birthday = models.DateTimeField()
     address = models.CharField(max_length=255)
+    county = models.CharField(max_length=255)
     phone = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     doctorId = models.PositiveIntegerField(null=True)
@@ -33,8 +35,9 @@ class Appointment(models.Model):
     title = models.CharField(max_length=255)
     doctorId = models.PositiveIntegerField(null=True)
     patientId = models.PositiveIntegerField(null=True)
+    patientless = models.BooleanField(default=False)
     duration = models.PositiveIntegerField(default=30)
-    description = models.TextField()
+    description = models.TextField(default="")
     important = models.BooleanField(default = False)
     date = models.DateTimeField(default=timezone.now)
 
@@ -42,3 +45,17 @@ class Invitation(models.Model):
     doctorId = models.PositiveIntegerField(null=True)
     code = models.CharField(max_length=255, unique=True)
     date = models.DateTimeField(default=timezone.now)
+
+class MedicalRecord(models.Model):
+    patientId = models.PositiveIntegerField(null=True)
+    chronicDiseases = models.TextField(default="")
+    currentMedications = models.TextField(default="")
+    allergies = models.TextField(default="")
+    surgeries = models.TextField(default="")
+    familyHistory = models.TextField(default="")
+
+class Consultation(models.Model):
+    patientId = models.PositiveIntegerField(null=True)
+    doctorId = models.PositiveIntegerField(null=True)
+    date = models.DateTimeField(default=timezone.now)
+    fileId = models.PositiveIntegerField(null=True)

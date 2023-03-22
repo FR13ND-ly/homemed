@@ -1,0 +1,16 @@
+<h1>Consultations</h1>
+<p>Here you can see consultations from your doctor</p>
+<section class="consultations" *ngIf="consultations$ | async as consultations">
+    <article class="consultation" *ngFor="let consultation of consultations">
+        <div class="wrapper">
+            <button class="">Download</button>
+            <div class="consultation__data">
+                <p>{{consultation.date}}</p>
+                <section class="doctor">
+                    <img class="doctor__image" [src]="consultation.doctor.imageUrl">
+                    <p>{{consultation.doctor.name}}</p>
+                </section>
+            </div>
+        </div>
+    </article>
+</section>

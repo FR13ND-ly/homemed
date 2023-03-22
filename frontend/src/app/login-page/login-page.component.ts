@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, switchMap } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs';
 import { FilesService } from '../shared/data-access/files.service';
 import { UserService } from '../shared/data-access/user.service';
+import { counties } from '../shared/utils/romanian-counties';
 import { login, loginSuccess } from '../store/user/user.actions';
 import { userSelector } from '../store/user/user.selector';
 
@@ -12,9 +13,9 @@ import { userSelector } from '../store/user/user.selector';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
   
-  constructor(private store : Store, private userService: UserService, private filesService : FilesService, private router : Router) {}
+  constructor(private route : ActivatedRoute, private store : Store, private userService: UserService, private filesService : FilesService, private router : Router) {}
 
   user$ = this.store.select(userSelector)
   login: boolean = true
@@ -25,13 +26,26 @@ export class LoginPageComponent {
     name : "",
     email : "",
     photoURL : "",
-    address : "2",
-    phone : "3",
+    address : "",
+    phone : "",
     doctorId : "",
+    county : "",
     validationImageId : "",
     invitationCode : "",
     birthday: ""
   }
+
+  ngOnInit(): void {
+    this.route.params.pipe(
+      filter((params : any) => params.code),
+    ).subscribe((params) => {
+      this.user.invitationCode = params.code
+      this.user.type = "patient"
+    })
+  }
+
+
+  counties = [...counties]
 
   onGoogleLogin() {
     this.userService.GoogleAuth().pipe(

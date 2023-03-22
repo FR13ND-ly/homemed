@@ -22,4 +22,20 @@ export class DoctorService {
   updateDoctor(doctor : any) {
     return this.http.put(`${this.apiURL}update/${doctor.uid}/`, doctor)
   }
+
+  getConsultations(patientId : any) {
+    return this.http.get(`${this.apiURL}consultations/get/${patientId}/`)
+  }
+
+  getMedicalRecords(uid : any) {
+    return this.http.get(`${this.apiURL}medical-records/get/${uid}/`)
+  }
+
+  addConsultation(consultation : any) {
+    return this.http.post(`${this.apiURL}consultations/add/`, consultation)
+  }
+
+  deleteConsultation(consultationId : any) {
+    return this.http.delete(`${this.apiURL}consultations/delete/${consultationId}/`)
+  }
 }

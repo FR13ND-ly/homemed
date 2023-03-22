@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent {
+
   menu = [
     {
       name: 'Dashboard',
@@ -18,9 +19,20 @@ export class ShellComponent {
       link: '/appointments'
     },
     {
+      name: 'Consultations',
+      icon: 'assignment',
+      link: '/consultations'
+    },
+    {
+      name: 'Medical Record',
+      icon: 'assignment',
+      link: '/medical-record'
+    },
+    {
       name: 'Settings',
       icon: 'settings',
       link: '/settings'
     },
   ]
+  
 }
