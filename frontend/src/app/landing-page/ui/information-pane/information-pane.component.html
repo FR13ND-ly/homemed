@@ -1,22 +1,15 @@
-<img class="primary-img" />
-<div class="primary-wrapper">
-    <article class="pane">
-        <span class="pane__title">Lorem ipsum</span>
-        <p class="pane__text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua ut labore et dolore
-            magna aliqua
-        </p>
-    </article>
-    <div class="secondary-wrapper">
-        <article class="pane">
-            <span class="pane__title">Lorem ipsum</span>
-            <p class="pane__text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua ut labore et dolore
-                magna aliqua
-            </p>
-        </article>
-        <img class="secondary-img">
+<h1>Find doctor in your county</h1>
+<mat-form-field appearance="outline">
+    <mat-label>County</mat-label>
+    <mat-select [(ngModel)]="county" (selectionChange)="onInput(county)">
+        <mat-option *ngFor="let county of counties" [value]="county">
+            {{ county }}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<div class="wrapper">
+    <div class="card card--outline" *ngFor="let doctor of doctors">
+        <h3>{{ doctor.name }}</h3>
+        <p>{{ doctor.email }}</p>
     </div>
 </div>

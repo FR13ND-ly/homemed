@@ -1,0 +1,19 @@
+.card {
+    display: flex;
+    background-color: hsla(212, 80%, 42%, 20%);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    padding: 1.1rem;
+    color: hsl(212, 68%, 26%);
+    backdrop-filter: blur(4px);
+    border: 2px solid hsla(212, 80%, 42%, 10%);
+}
+
+.card--outline {
+    display: flex;
+    background-color: #fff;
+    border: 2px solid hsla(212, 80%, 42%, 20%);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    padding: 1.1rem;
+}

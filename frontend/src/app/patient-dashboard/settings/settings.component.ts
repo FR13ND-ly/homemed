@@ -26,6 +26,9 @@ export class SettingsComponent {
     switchMap((user: any) => this.patientsService.getPatient(user.uid))
   )
 
+  range = (start : any, stop : any) =>
+    Array(Math.ceil(stop - start)).fill(start).map((x, y) => x + y)
+
   onUpdatePatient(patient : any) {
     if (this.avatarId) patient.avatarId = this.avatarId
     this.patientsService.updatePatient(patient).subscribe()

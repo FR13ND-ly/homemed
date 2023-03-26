@@ -1,33 +1,38 @@
-<h1>Consultations</h1>
-<p>Here you can manage consultations of your patients</p>
-<div class="wrapper">
-    <div class="user-list" *ngIf="patients$ | async as patients">
-        <img 
-            class="user" 
-            [src]="patient.imageUrl" 
-            *ngFor="let patient of patients; let i = index"
-            [class.user--selected]="i == (selectedIndex$ | async)"
-            (click)="selectedIndex$.next(i)">
-    </div>
-    <div class="wrapper" *ngIf="consultations$ | async as consultations">
-        <section class="consultations" >
-            <article class="consultation" *ngFor="let consultation of consultations">
-                <div class="wrapper">
-                    <button class="">Download</button>
+<h1 class="page-title">Consultations</h1>
+<p class="page-subtitle">Here you can manage consultations of your patients</p>
+<div class="page-content">
+    <div class="main-wrapper wrapper">
+        <div class="user-list" *ngIf="patients$ | async as patients">
+            <img 
+                class="user" 
+                [src]="patient.imageUrl" 
+                *ngFor="let patient of patients; let i = index"
+                [class.user--selected]="i == (selectedIndex$ | async)"
+                (click)="selectedIndex$.next(i)">
+        </div>
+        <section class="consultations" *ngIf="consultations$ | async as consultations">
+            <article class="consultation card" *ngFor="let consultation of consultations">
+                <div class="consultation__main">
+                    <div class="consultation__button"><mat-icon>upload_file</mat-icon></div>
                     <div class="consultation__data">
-                        <p>{{consultation.date}}</p>
+                        <b>{{consultation.date | date : "medium" }}</b>
                         <section class="doctor">
                             <img class="doctor__image" [src]="consultation.doctor.imageUrl">
-                            <p>{{consultation.doctor.name}}</p>
+                            <span>{{consultation.doctor.name}}</span>
                         </section>
                     </div>
                 </div>
-                <button (click)="onDeleteConsultation(consultation.id)">Delete</button>
+                <mat-icon (click)="onDeleteConsultation(consultation.id)" class="consultation__delete-btn" color="warn">delete</mat-icon>
             </article>
-        </section>
-        <section class="add-consultation">
-            <h2>Add consultation</h2>
-            <input type="file" (input)="onAddConsultation($event)">
+            <b class="consultation card" *ngIf="!consultations.length">Add first consultation...</b>
         </section>
     </div>
+    <section class="card--outline add-consultation">
+        <h2>Add consultation</h2>
+        <button class="button button--upload-file" (click)="add.click()">
+            <mat-icon>upload</mat-icon>
+            Add file
+        </button>
+        <input type="file" (input)="onAddConsultation($event)" style="display: none;" #add>
+    </section>
 </div>

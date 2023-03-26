@@ -11,7 +11,7 @@ export class ShellComponent {
     {
       name: 'Dashboard',
       icon: 'dashboard',
-      link: '/'
+      link: '/main'
     },
     {
       name: 'Appointments',
@@ -20,12 +20,12 @@ export class ShellComponent {
     },
     {
       name: 'Consultations',
-      icon: 'assignment',
+      icon: 'folder_open',
       link: '/consultations'
     },
     {
-      name: 'Medical Record',
-      icon: 'assignment',
+      name: 'Medical Records',
+      icon: 'text_snippet',
       link: '/medical-record'
     },
     {

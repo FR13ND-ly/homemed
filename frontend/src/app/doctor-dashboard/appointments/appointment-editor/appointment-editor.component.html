@@ -1,0 +1,49 @@
+<form (submit)="updateAppointment(appointmentForm)" #appointmentForm="ngForm" class="add-appointment-form">
+    <h1>Edit Appointment</h1>
+    <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput name="title" [(ngModel)]="data.title" placeholder="Please enter title">
+    </mat-form-field>
+    <mat-form-field appearance="outline" *ngIf="!data.patientless">
+        <mat-label>Patient</mat-label>
+        <mat-select name="patient" [(ngModel)]="data.patient.id">
+            <mat-option *ngFor="let patient of patients$ | async" [value]="patient.id">
+                {{ patient.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <section class="wrapper">
+        <mat-form-field appearance="outline">
+            <mat-label>Choose a date</mat-label>
+            <input matInput name="date" [(ngModel)]="data.scheduledDate" [min]="minDate" [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Time</mat-label>
+            <mat-select [(ngModel)]="data.scheduledTime" name="time">
+                <mat-option *ngFor="let hour of range(data.patient.availableTimeStart, data.patient.availableTimeEnd)" [value]="hour">
+                    {{ hour }}:00
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Duration</mat-label>
+            <input matInput name="duration" [(ngModel)]="data.duration">
+        </mat-form-field>
+    </section>
+    <mat-form-field appearance="outline">
+        <mat-label>Details</mat-label>
+        <textarea name="details" [(ngModel)]="data.description" matInput></textarea>
+    </mat-form-field>
+    <div class="wrapper">
+        <button class="button">
+            <mat-icon>done</mat-icon>
+            Save changes
+        </button>
+        <section class="wrapper">
+            <mat-checkbox name="important" [(ngModel)]="data.important">Important</mat-checkbox>
+            <mat-checkbox name="patientless" [(ngModel)]="data.patientless">Ad-Hoc</mat-checkbox>
+        </section>
+    </div>
+</form>

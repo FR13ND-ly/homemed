@@ -1,19 +1,28 @@
-<ng-container *ngIf="patient$ | async as patient">
-    <section class="patient">
-        <img class="patient__image" [src]="patient.imageUrl">
+<h1 class="page-title">Medical Records</h1>
+<p class="page-subtitle">Here you can see details written by your doctor</p>
+<div class="medicalRecords page-content" *ngIf="medicalRecords$ | async as patient">
+    <section class="patient card--outline">
+        <div class="patient__primary-data">
+            <img class="patient__image" [src]="patient.imageUrl">
+            <div class="patient__info">
+                <p class="patient__name">{{patient.name}}</p>
+                <p>{{patient.birthday | date }}</p>
+            </div>
+        </div>
         <div>
-            <h1>{{patient.name}}</h1>
-            <p>{{patient.birthday}}</p>
-            <p>Address: {{patient.address}}, {{patient.county}}</p>
-            <p>Email: {{patient.email}}</p>
-            <p>Phone: {{patient.phone}}</p>
+            <p><b>Address:</b> {{patient.address}}, {{patient.county}}</p>
+            <p><b>Email:</b> {{patient.email}}</p>
+            <p><b>Phone:</b> {{patient.phone}}</p>
         </div>
     </section>
-    <div class="details">
-        <p>Current Medications: {{ patient.currentMedications | emptyText }}</p>
-        <p>Chronic Diseases: {{ patient.chronicDiseases | emptyText }}</p>
-        <p>Allergies: {{ patient.allergies | emptyText }}</p>
-        <p>Surgeries: {{ patient.surgeries | emptyText }}</p>
-        <p>Family History: {{ patient.familyHistory | emptyText }}</p>
+    <div class="patient__details">
+        <div class="wrapper">
+            <span class="card" [class.card--selected]="!patient.selectedIndex" (click)="onSelectDisease(0, patient)">Current Medications</span>
+            <span class="card" [class.card--selected]="patient.selectedIndex==1" (click)="onSelectDisease(1, patient)">Chronic Diseases</span>
+            <span class="card" [class.card--selected]="patient.selectedIndex==2" (click)="onSelectDisease(2, patient)">Allergies</span>
+            <span class="card" [class.card--selected]="patient.selectedIndex==3" (click)="onSelectDisease(3, patient)">Surgeries</span>
+            <span class="card" [class.card--selected]="patient.selectedIndex==4" (click)="onSelectDisease(4, patient)">Family History</span>
+        </div>
+        <p class="patient__disease">{{ patient.showText | emptyText }}</p>
     </div>
-</ng-container>
+</div>

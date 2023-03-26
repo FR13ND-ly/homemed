@@ -131,3 +131,10 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'Excited User <mailgun@sandbox8fd69166223e491e808c05d5d87b2f9d.mailgun.org>'
+EMAIL_HOST_PASSWORD = '82cccebfcd0a60eff53aae13095a9cfb-30344472-722885bb'
+EMAIL_USE_TLS = True

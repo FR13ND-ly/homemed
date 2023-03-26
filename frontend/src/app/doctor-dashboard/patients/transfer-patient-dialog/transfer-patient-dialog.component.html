@@ -1,0 +1,10 @@
+<mat-form-field appearance="outline">
+    <mat-label>Doctor's Code</mat-label>
+    <input [(ngModel)]="newDoctorUID" matInput placeholder="Enter Doctor's code">
+</mat-form-field>
+<div class="wrapper">
+    <button (click)="onChangeDoctor()" class="button">
+        <mat-icon>done</mat-icon>
+        Change
+    </button>
+</div>

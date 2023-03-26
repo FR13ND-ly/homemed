@@ -20,15 +20,15 @@ export class PatientsService {
     return this.http.put(`${this.apiURL}update/${patient.uid}/`, patient)
   }
 
-  transferPatient(data : any) {
-    return this.http.post(`${this.apiURL}transfer/`, data)
-  }
-
   getPatientConsultations(uid : any) {
     return this.http.get(`${this.apiURL}consultations/get/${uid}/`)
   }
 
   getMedicalRecords(uid : any) {
     return this.http.get(`${this.apiURL}medical-records/get/${uid}/`)
+  }
+
+  getDashboard(uid : any) {
+    return this.http.get(`${this.apiURL}dashboard/${uid}/`)
   }
 }

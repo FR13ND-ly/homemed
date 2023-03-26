@@ -33,7 +33,7 @@ import { EmptyTextPipe } from 'src/app/core/pipes/empty-text.pipe';
     EmptyTextPipe,
     RouterModule.forChild([
       { path: '', component: ShellComponent, children: [
-        { path: '', component: DashboardComponent },
+        { path: 'main', component: DashboardComponent },
         { path: 'appointments', component: AppointmentsComponent },
         { path: 'consultations', component: ConsultationsComponent },
         { path: 'medical-record', component: MedicalRecordComponent },

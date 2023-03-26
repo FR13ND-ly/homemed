@@ -1,20 +1,67 @@
 :host {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
 }
 
 .appointments {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
 }
 
 .appointment {
     display: flex;
     flex-direction: column;
+    height: fit-content;
+    &__header {
+        display: flex;
+        flex-direction: column;
+    }
+    &__patient {
+        display: flex;
+        gap: .5rem;
+        align-content: center;
+        margin: .8rem 0 .5rem;
+    }
     &__patient-image {
         width: 25px;
         height: 25px;
         border-radius: 50%;
+    }
+    &__patient-name {
+        margin: 0;
+        line-height: 1.35;
+    }
+    &__date {
+        background-color: #fff;
+        color: #171717;
+        padding: .7rem;
+        border-radius: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+    }
+    &__duration {
+        font-size: 2.6rem;
+        margin-bottom: .2rem;
+        font-weight: bold;   
+    }
+    &__scheduledDate {
+        font-size: .8rem
+    }
+    &--important {
+        background-color: hsla(61, 100%, 50%, 0.2);
+        color: #512300;
+    }
+    &__title {
+        font-size: 1.6rem;
+        margin: 0;
+    }
+    &__actions {
+        display: flex;
+        gap: .5rem;
     }
 }

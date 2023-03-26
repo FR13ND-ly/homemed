@@ -1,1 +1,36 @@
-<p>dashboard works!</p>
+<ng-container *ngIf="dashboard$ | async as dashboard">
+    <h1>Hi, {{ dashboard.name }}</h1>
+    <p>Today you have <span class="mark" routerLink="/dashboard/patient/appointments">{{ dashboard.appointmentsToday }} appointments</span></p>
+    <div class="wrapper">
+        <section class="info-pane card">
+            <div class="info-pane__content">
+                <mat-icon class="info-pane__icon">calendar_month</mat-icon>
+                <div>
+                    <span class="info-pane__title">Total appointments</span>
+                    <h2 class="info-pane__count">{{ dashboard.appointmentsCount }}</h2>
+                </div>
+            </div>
+            <a class="info-pane__link" routerLink="/dashboard/doctor/patients">Manage your schedule ></a>
+        </section>
+        <section class="info-pane card">
+            <div class="info-pane__content">
+                <mat-icon class="info-pane__icon">edit_document</mat-icon>
+                <div>
+                    <span class="info-pane__title">Total consultations</span>
+                    <h2 class="info-pane__count">{{ dashboard.consultationsCount }}</h2>
+                </div>
+            </div>
+            <a class="info-pane__link" routerLink="/dashboard/doctor/patients">Manage consultations ></a>
+        </section>
+        <section class="card--outline your-doctor">
+            <span class="your-doctor__title">Your doctor</span>
+            <div class="wrapper">
+                <img class="your-doctor__image" [src]="dashboard.doctor.imageUrl">
+                <section class="your-doctor__details">
+                    <span class="your-doctor__name">{{ dashboard.doctor.name }}</span>
+                    <span class="your-doctor__email">{{ dashboard.doctor.email }}</span>
+                </section>
+            </div>
+        </section>
+    </div>
+</ng-container>

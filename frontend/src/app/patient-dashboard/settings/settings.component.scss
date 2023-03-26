@@ -2,3 +2,16 @@
     display: flex;
     flex-direction: column;
 }
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.wrapper {
+    align-items: center;
+    mat-form-field {
+        width: 100%;
+    }
+}

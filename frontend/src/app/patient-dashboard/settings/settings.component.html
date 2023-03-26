@@ -1,14 +1,33 @@
-<h1>User information</h1>
-<p>Here you can update your user information.</p>
-<ng-container *ngIf="patient$ | async as patient">
+<h1 class="page-title">User information</h1>
+<p class="page-subtitle">Here you can update your user information. It may take some time updates to apply</p>
+<div class="page-content" *ngIf="patient$ | async as patient">
     <mat-form-field appearance="outline">
         <mat-label>Full Name</mat-label>
         <input [(ngModel)]="patient.name" matInput placeholder="Please enter your name">
     </mat-form-field>
     <div class="wrapper">
         <mat-form-field appearance="outline">
+            <mat-label>Available from</mat-label>
+            <mat-select [(ngModel)]="patient.availableTimeStart">
+                <mat-option *ngFor="let hour of range(8, patient.availableTimeEnd)" [value]="hour">
+                    {{ hour }}:00
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Available to</mat-label>
+            <mat-select [(ngModel)]="patient.availableTimeEnd">
+                <mat-option *ngFor="let hour of range(patient.availableTimeStart + 1, 23)" [value]="hour">
+                    {{ hour }}:00
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="wrapper">
+        <mat-form-field appearance="outline">
             <mat-label>Address</mat-label>
             <input [(ngModel)]="patient.address" matInput placeholder="Please enter your address">
+            <mat-icon matSuffix>home</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>County</mat-label>
@@ -19,16 +38,28 @@
             </mat-select>
         </mat-form-field>
     </div>
-    <mat-form-field appearance="outline">
-        <mat-label>Phone number</mat-label>
-        <input [(ngModel)]="patient.phone" matInput placeholder="Please enter your phone number">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Choose a date</mat-label>
-        <input [(ngModel)]="patient.birthday" matInput [matDatepicker]="picker">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker  #picker></mat-datepicker>
-    </mat-form-field>
-    <input type="file" (change)="onChangeAvatar($event)">
-    <button (click)="onUpdatePatient(patient)">Save changes</button>
-</ng-container>
+    <section class="wrapper">
+        <mat-form-field appearance="outline">
+            <mat-label>Phone number</mat-label>
+            <input [(ngModel)]="patient.phone" matInput placeholder="Please enter your phone number">
+            <mat-icon matSuffix>call</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Birthday</mat-label>
+            <input [(ngModel)]="patient.birthday" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker  #picker></mat-datepicker>
+        </mat-form-field>
+    </section>
+    <div class="wrapper">
+        <button class="button button--upload-file" (click)="avatar.click()">
+            <mat-icon>upload</mat-icon>
+            Change profile photo
+        </button>
+        <input type="file" (change)="onChangeAvatar($event)" #avatar style="display: none;">
+        <button class="button" (click)="onUpdatePatient(patient)">
+            <mat-icon>done</mat-icon>
+            Save changes
+        </button>
+    </div>
+</div>

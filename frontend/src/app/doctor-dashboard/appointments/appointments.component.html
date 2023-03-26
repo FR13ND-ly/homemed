@@ -1,21 +1,36 @@
-<h2>Appointments</h2>
-<p>Here you can manage your schedule</p>
-<button (click)="onAddAppointment()">Add appointment</button>
-<div class="appointments">
-    <div class="appointment" *ngFor="let appointment of appointments$ | async">
-        <div class="appointment__header">
-            <h3 class="appointment__title">{{ appointment.title }}</h3>
-        </div>
-        <section>
-            <button (click)="onEditAppointment(appointment)">Edit</button>
-            <button (click)="onDeleteAppointment(appointment.id)">Delete</button>
-        </section>
-        <div class="appointment__patient">
-            <img class="appointment__patient-image" [src]="appointment.patient.imageUrl">
-            <span class="appointment__patient-name">{{ appointment.patient.name }}</span>
-        </div>
-        <span>{{ appointment.scheduledDate | date : 'medium' }} | {{ appointment.duration }} min</span>
-        <b>Details</b>
-        <p>{{ appointment.description }}</p>
+<h1 class="page-title">Appointments</h1>
+<button class="page-action button" (click)="onAddAppointment()">
+    <mat-icon>assignment_add</mat-icon>
+    Add appointment
+</button>
+<p class="page-subtitle">Here you can manage your schedule</p>
+<div class="page-content">
+    <div class="appointments">
+        <article class="appointment card" [class.appointment--important]="appointment.important" *ngFor="let appointment of appointments$ | async">
+            <div class="appointment__header">
+                <h3 class="appointment__title">{{ appointment.title }} </h3>
+                <div class="appointment__patient" *ngIf="!appointment.patientless">
+                    <img class="appointment__patient-image" [src]="appointment.patient.imageUrl">
+                    <span class="appointment__patient-name">{{ appointment.patient.name }}</span>
+                </div>
+                <p class="appointment__patient" *ngIf="appointment.patientless">Ad-Hoc</p>
+            </div>
+           
+            <div class="appointment__date">
+                <span class="appointment__duration">{{ appointment.duration }} min</span>
+                <span class="appointment__time">{{ appointment.scheduledDate | date }} | {{ appointment.scheduledTime }}:00</span>
+            </div>
+            <p>{{ appointment.description }}</p>
+            <section class="appointment__actions">
+                <button class="button" (click)="onEditAppointment(appointment)">
+                    <mat-icon>edit</mat-icon>
+                    Edit
+                </button>
+                <button class="button button--warn" (click)="onDeleteAppointment(appointment.id)">
+                    <mat-icon>delete</mat-icon>
+                    Delete
+                </button>
+            </section>
+        </article>
     </div>
 </div>

@@ -18,7 +18,7 @@ export class ShellComponent implements OnInit {
     {
       name: 'Dashboard',
       icon: 'dashboard',
-      link: '/'
+      link: '/main'
     },
     {
       name: 'Patients',
@@ -32,7 +32,7 @@ export class ShellComponent implements OnInit {
     },
     {
       name: 'Consultations',
-      icon: 'assignment',
+      icon: 'folder_open',
       link: '/consultations'
     },
     {

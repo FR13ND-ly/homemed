@@ -2,3 +2,26 @@
     display: flex;
     flex-direction: column;
 }
+
+.code {
+    border-bottom: 2px dotted;
+    cursor: pointer;
+    transition: .1s ease-in-out;
+    &:hover {
+        color: var(--primary-color);
+        border-bottom: 2px dotted var(--primary-color);
+    }
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.wrapper {
+    align-items: center;
+    mat-form-field {
+        width: 100%;
+    }
+}

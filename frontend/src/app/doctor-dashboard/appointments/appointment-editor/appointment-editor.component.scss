@@ -1,0 +1,11 @@
+:host {
+    display: flex;
+    box-sizing: border-box;
+    padding: 2rem;
+    padding-top: 1rem;
+}
+
+.add-appointment-form {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,16 +1,17 @@
-<h1>Consultations</h1>
-<p>Here you can see consultations from your doctor</p>
-<section class="consultations" *ngIf="consultations$ | async as consultations">
-    <article class="consultation" *ngFor="let consultation of consultations">
-        <div class="wrapper">
-            <button class="">Download</button>
+<h1 class="page-title">Consultations</h1>
+<p class="page-subtitle">Here you can see consultations from your doctor</p>
+<section class="page-content consultations" *ngIf="consultations$ | async as consultations">
+    <article class="consultation card" *ngFor="let consultation of consultations">
+        <div class="consultation__main">
+            <div class="consultation__button" (click)="seeConsultationFile(consultation)"><mat-icon>upload_file</mat-icon></div>
             <div class="consultation__data">
-                <p>{{consultation.date}}</p>
+                <b>{{consultation.date | date : "medium" }}</b>
                 <section class="doctor">
                     <img class="doctor__image" [src]="consultation.doctor.imageUrl">
-                    <p>{{consultation.doctor.name}}</p>
+                    <span>{{consultation.doctor.name}}</span>
                 </section>
             </div>
         </div>
     </article>
+    <b class="consultation card" *ngIf="!consultations.length">Add first consultation...</b>
 </section>

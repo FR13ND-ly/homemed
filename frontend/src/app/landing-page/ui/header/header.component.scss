@@ -1,21 +1,11 @@
 .header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.header__button {
-    font-size: 24px;
-    font-weight: 900;
-    background-color: hsla(196, 97%, 23%, 0.1);
-    border: 1px solid #025E72;
-    border-radius: 20px;
-    padding: 15px;
-}
-
-span {
-    color: #375974;
-    font-size: 40px;
-    font-family: 'Inter', 'Courier New', Courier, monospace;
-    font-weight: 900;
+    position: relative;
+    height: 3rem;
+    cursor: pointer;
+    &__logo {
+        height: 100%;
+        width: fit-content;
+    }
 }

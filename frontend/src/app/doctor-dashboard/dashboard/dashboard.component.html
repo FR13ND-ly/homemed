@@ -1,1 +1,36 @@
-<p>dashboard works!</p>
+<ng-container *ngIf="dashboard$ | async as dashboard">
+    <h1 class="page-title">Hi, {{ dashboard.name }}</h1>
+    <p class="page-subtitle">Today you have <span class="mark" routerLink="/dashboard/doctor/appointments">{{ dashboard.appointmentsToday }} appointments</span></p>
+    <div class="page-content wrapper">
+        <section class="info-pane card" routerLink="/dashboard/doctor/patients">
+            <div class="info-pane__content">
+                <mat-icon class="info-pane__icon">supervised_user_circle</mat-icon>
+                <div>
+                    <span class="info-pane__title">Total patients</span>
+                    <h2 class="info-pane__count">{{ dashboard.patientsCount }}</h2>
+                </div>
+            </div>
+            <a class="info-pane__link">View patients details ></a>
+        </section>
+        <section class="info-pane card" routerLink="/dashboard/doctor/patients">
+            <div class="info-pane__content">
+                <mat-icon class="info-pane__icon">calendar_month</mat-icon>
+                <div>
+                    <span class="info-pane__title">Total appointments</span>
+                    <h2 class="info-pane__count">{{ dashboard.appointmentsCount }}</h2>
+                </div>
+            </div>
+            <a class="info-pane__link" >Manage your schedule ></a>
+        </section>
+        <section class="info-pane card" routerLink="/dashboard/doctor/patients">
+            <div class="info-pane__content">
+                <mat-icon class="info-pane__icon">edit_document</mat-icon>
+                <div>
+                    <span class="info-pane__title">Total consultations</span>
+                    <h2 class="info-pane__count">{{ dashboard.consultationsCount }}</h2>
+                </div>
+            </div>
+            <a class="info-pane__link">Manage consultations ></a>
+        </section>
+    </div>
+</ng-container>

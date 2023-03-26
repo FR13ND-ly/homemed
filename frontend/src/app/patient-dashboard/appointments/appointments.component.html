@@ -1,16 +1,20 @@
-<h2>Appointments</h2>
-<p>Here you can see your schedule</p>
-<div class="appointments">
-    <div class="appointment" *ngFor="let appointment of appointments$ | async">
-        <div class="appointment__header">
-            <h3 class="appointment__title">{{ appointment.title }}</h3>
-        </div>
-        <div class="appointment__patient">
-            <img class="appointment__patient-image" [src]="appointment.doctor.imageUrl">
-            <span class="appointment__patient-name">{{ appointment.doctor.name }}</span>
-        </div>
-        <span>{{ appointment.scheduledDate | date : 'medium' }} | {{ appointment.duration }} min</span>
-        <b>Details</b>
-        <p>{{ appointment.description }}</p>
+<h1 class="page-title">Appointments</h1>
+<p class="page-subtitle">Here you can see your schedule</p>
+<div class="page-content">
+    <div class="appointments">
+        <article class="appointment card" [class.appointment--important]="appointment.important" *ngFor="let appointment of appointments$ | async">
+            <div class="appointment__header">
+                <h3 class="appointment__title">{{ appointment.title }} </h3>
+                <div class="appointment__doctor">
+                    <img class="appointment__doctor-image" [src]="appointment.doctor.imageUrl">
+                    <span class="appointment__doctor-name">{{ appointment.doctor.name }}</span>
+                </div>
+            </div>
+            <div class="appointment__date">
+                <span class="appointment__duration">{{ appointment.duration }} min</span>
+                <span class="appointment__time">{{ appointment.scheduledDate | date : 'medium' }}</span>
+            </div>
+            <p>{{ appointment.description }}</p>
+        </article>
     </div>
 </div>

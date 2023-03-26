@@ -12,8 +12,21 @@ from PIL import Image
 import PIL
 import random 
 import string
-
+import datetime
+from django.core.mail import EmailMessage
 URL="http://127.0.0.1:8000/"
+
+@csrf_exempt
+def send_email(request):
+    data = JSONParser().parse(request)
+    email = EmailMessage(
+        data['subject'],
+        data['content'],
+        'Motricală Alin-Gabriel <postmaster@sandbox8fd69166223e491e808c05d5d87b2f9d.mailgun.org>',
+        [data['recipient']],
+    )
+    email.send()
+    return JsonResponse({"success" : True})
 
 @csrf_exempt
 def check_user(request):
@@ -82,17 +95,11 @@ def doctor_dashboard(request, uid):
     response = {
         "uid" : uid,
         "name" : profile.name,
-        "imageUrl" : get_file(profile.avatarId),
-        "validated" : doctor.validated,
-        "patients" : [],
+        "patientsCount" : Patient.objects.filter(doctorId=doctor.id).count(),
+        "consultationsCount" : Consultation.objects.filter(doctorId=doctor.id).count(),
+        "appointmentsCount" : Appointment.objects.filter(doctorId=doctor.id).count(),
+        "appointmentsToday" : Appointment.objects.filter(doctorId=doctor.id, scheduledDate=datetime.date.today()).count(),
     }
-    patients = Patient.objects.filter(doctorId=doctor.id)
-    for patient in patients:
-        response["patients"].append({
-            "id" : patient.id,
-            "name" : patient.name,
-            "imageUrl" : get_file(patient.avatarId),
-        })
     return JsonResponse(response)
 
 
@@ -102,74 +109,67 @@ def patient_dashboard(request, uid):
     response = {
         "uid" : uid,
         "name" : profile.name,
-        "imageUrl" : get_file(profile.avatarId),
         "doctor" : {
             "id" : patient.doctorId,
             "name" : Profile.objects.filter(type="doctor").get(fid=patient.doctorId).name,
             "imageUrl" : get_file(Profile.objects.filter(type="doctor").get(fid=patient.doctorId).avatarId),
+            "email" : Doctor.objects.get(id=patient.doctorId).email,
         },
-        "appointments" : [],
-        "consultations" : [],
+        "consultationsCount" : Consultation.objects.filter(patientId=patient.id).count(),
+        "appointmentsCount" : Appointment.objects.filter(patientId=patient.id).count(),
+        "appointmentsToday" : Appointment.objects.filter(patientId=patient.id, scheduledDate=datetime.date.today()).count(),
     }
-    appointments = Appointment.objects.filter(patientId=patient.id).order_by('-scheduledDate')
-    for appointment in appointments:
-        response["appointments"].append({
-            "id" : appointment.id,
-            "scheduledDate" : appointment.scheduledDate,
-            "title" : appointment.title,
-            "doctor" : {
-                "name" : Profile.objects.filter(type="doctor").get(fid=appointment.doctorId).name,
-                "imageUrl" : get_file(Profile.objects.filter(type="doctor").get(fid=appointment.doctorId).avatarId),
-            },
-            "duration" : appointment.duration,
-            "description" : appointment.description,
-            "important" : appointment.important,
-            "date" : appointment.date,
-        })
-    consultations = Consultation.objects.filter(patientId=patient.id).order_by('-scheduledDate')
-    for consultation in consultations:
-        response["consultations"].append({
-            "id" : consultation.id,
-            "scheduledDate" : consultation.scheduledDate,
-            "title" : consultation.title,
-            "doctor" : {
-                "name" : Profile.objects.filter(type="doctor").get(fid=consultation.doctorId).name,
-                "imageUrl" : get_file(Profile.objects.filter(type="doctor").get(fid=consultation.doctorId).avatarId),
-            },
-            "duration" : consultation.duration,
-            "description" : consultation.description,
-            "important" : consultation.important,
-            "date" : consultation.date,
-        })
     return JsonResponse(response)
+
+@csrf_exempt
+def get_doctors_by_county(request):
+    data = JSONParser().parse(request)
+    doctors = Doctor.objects.filter(county=data['county'])
+    response = []
+    for doctor in doctors:
+        profile = Profile.objects.filter(type="doctor").get(fid=doctor.id)
+        response.append({
+            "id" : doctor.id,
+            "name" : profile.name,
+            "email" : doctor.email,
+        })
+    return JsonResponse(response, safe=False)
 
 def get_appointments(request, uid):
     profile = Profile.objects.get(uid=uid)
     if (profile.type == "doctor"):
-        appointments = Appointment.objects.filter(doctorId=profile.fid).order_by('-scheduledDate')
+        appointments = Appointment.objects.filter(doctorId=profile.fid).order_by('scheduledDate')
     else:
-        appointments = Appointment.objects.filter(patientId=profile.fid).order_by('-scheduledDate')
+        appointments = Appointment.objects.filter(patientId=profile.fid).order_by('scheduledDate')
     response = []
     for appointment in appointments:
-        response.append({
+        raw = {
             "uid" : uid,
             "id" : appointment.id,
             "scheduledDate" : appointment.scheduledDate,
+            "scheduledTime" : appointment.scheduledTime,
             "title" : appointment.title,
+            "patientless" : appointment.patientless,
             "doctor" : {
                 "name" : Profile.objects.filter(type="doctor").get(fid=appointment.doctorId).name,
                 "imageUrl" : get_file(Profile.objects.filter(type="doctor").get(fid=appointment.doctorId).avatarId),
             },
-            "patient" : {
-                "id" : appointment.patientId,
-                "name" : Profile.objects.filter(type="patient").get(fid=appointment.doctorId).name,
-                "imageUrl" : get_file(Profile.objects.filter(type="patient").get(fid=appointment.patientId).avatarId),
-            },
+            "patient" : {},
             "duration" : appointment.duration,
             "description" : appointment.description,
             "important" : appointment.important,
             "date" : appointment.date,
-        })
+        }
+        if not appointment.patientless:
+            patient = Patient.objects.get(id=appointment.patientId)
+            raw["patient"] = {
+                "id" : appointment.patientId,
+                "name" : Profile.objects.filter(type="patient").get(fid=appointment.patientId).name,
+                "imageUrl" : get_file(Profile.objects.filter(type="patient").get(fid=appointment.patientId).avatarId),
+                "availableTimeStart" : patient.availableTimeStart,
+                "availableTimeEnd" : patient.availableTimeEnd,
+            }
+        response.append(raw)
     return JsonResponse(response, safe=False) 
 
 def get_appointment(request, id):
@@ -177,6 +177,7 @@ def get_appointment(request, id):
     response = {
         "id" : appointment.id,
         "scheduledDate" : appointment.scheduledDate,
+        "scheduledTime" : appointment.scheduledTime,
         "title" : appointment.title,
         "patient" : appointment.patientId,
         "duration" : appointment.duration,
@@ -192,6 +193,8 @@ def add_appointment(request):
         doctorId = Profile.objects.get(uid=data['uid']).fid,
         patientId = data['patientId'],
         scheduledDate = data['scheduledDate'],
+        scheduledTime = data['scheduledTime'],
+        patientless = data['patientless'],
         duration = data['duration'],
         title = data['title'],
         description = data['description'],
@@ -205,10 +208,12 @@ def update_appointment(request, id):
     data = JSONParser().parse(request)
     appointment = Appointment.objects.get(id=id)
     appointment.scheduledDate = data['scheduledDate']
+    appointment.scheduledTime = data['scheduledTime']
     appointment.title = data['title']
     appointment.description = data['description']
     appointment.duration = data['duration']
     appointment.important = data['important']
+    appointment.patientless = data['patientless']
     appointment.save()
     return JsonResponse({"success" : True})
 
@@ -290,6 +295,8 @@ def get_patients(request, uid):
             "uid" : profile.uid,
             "doctorId" : patient.doctorId,
             "name" : profile.name,
+            "availableTimeStart" : patient.availableTimeStart,
+            "availableTimeEnd" : patient.availableTimeEnd,
             "imageUrl" : get_file(profile.avatarId),
         })
     return JsonResponse(response, safe=False)
@@ -306,6 +313,8 @@ def get_patient(request, uid):
         "phone" : patient.phone,
         "email" : patient.email,
         "county" : patient.county,
+        "availableTimeStart" : patient.availableTimeStart,
+        "availableTimeEnd" : patient.availableTimeEnd,
         "avatarId" : profile.avatarId,
         "imageUrl" : get_file(profile.avatarId),
     }
@@ -331,6 +340,8 @@ def update_patient(request, uid):
     patient.address = data['address']
     patient.phone = data['phone']
     patient.county = data['county']
+    patient.availableTimeStart = data['availableTimeStart']
+    patient.availableTimeEnd = data['availableTimeEnd']
     patient.email = data['email']
     patient.save()
     return JsonResponse({"success": True})

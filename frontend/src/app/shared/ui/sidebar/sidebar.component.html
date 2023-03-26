@@ -1,17 +1,13 @@
 <div>
-    <h3>Homemed</h3>
+    <img [routerLink]="origin + '/main'" routerLinkActive="router-link-active"  class="logo" src="/assets/images/full_logo_w.png">
     <section class="menu">
-        <div class="item" [routerLink]="origin + item.link" [class.disabled]="!validated" *ngFor="let item of items">
-            <div class="icon-wrapper">
-                <mat-icon>{{ item.icon }}</mat-icon>
-                <span>{{ item.name }}</span>
-            </div>
+        <div class="item" routerLinkActive="item--active" [routerLink]="origin + item.link" [class.disabled]="!validated" *ngFor="let item of items">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <p class="item__name">{{ item.name }}</p>
         </div>
     </section>
 </div>
 <div class="item" routerLink="/" (click)="onLogout()">
-    <div class="icon-wrapper">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-    </div>
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Logout</span>
 </div>

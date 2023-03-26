@@ -11,6 +11,7 @@ import { HeaderComponent } from '../ui/header/header.component';
 import { MaterialModule } from 'src/app/shared/feature/material.module';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -27,6 +28,7 @@ import { BrowserModule } from '@angular/platform-browser';
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
     RouterModule.forChild([
       { path: '', component: ShellComponent }
     ])

@@ -18,4 +18,8 @@ export class ConsultationsComponent {
     switchMap(user => this.patientsService.getPatientConsultations(user.uid))
   )
     
+  seeConsultationFile(consultation : any) {
+    window.open(consultation.imageUrl, "_blank")
+
+  }
 }

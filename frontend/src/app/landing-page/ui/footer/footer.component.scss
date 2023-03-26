@@ -1,5 +1,19 @@
 :host {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+    background-color: #1C282F;
+    border-radius: 20px;
+    color: #fff;
+    height: 75%;
+    padding: 4rem 7rem 3rem 6rem;
+    flex-shrink: 0;
+}
+
+.logo {
+    height: 8rem;
+    margin-bottom: 8rem;
 }
 
 .title {
@@ -22,11 +36,17 @@
 }
 
 .list {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
     &__title {
         font-weight: bold;
     }
     &__item {
         list-style: none;
         cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }

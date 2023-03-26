@@ -1,4 +1,6 @@
-$proximity : 4rem;
+@use '@angular/material' as mat;
+
+$proximity : 2rem;
 
 :host {
     display: flex;
@@ -8,11 +10,30 @@ $proximity : 4rem;
     gap: $proximity;
 }
 
-.primary {
+.main {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    box-sizing: border-box;
+    padding: 2rem;
+    width: 40%;
     flex-shrink: 0;
+}
+
+.page-title {
+    margin-top: 4rem;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 4rem;
+    mat-icon {
+        transition: .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    &:hover mat-icon {
+        transform: translateX(-2px);
+    }
 }
 
 form {
@@ -20,8 +41,113 @@ form {
     flex-direction: column;
 }
 
+
+.logo {
+    cursor: pointer;
+    height: 3rem;
+    width: fit-content;
+    margin-bottom: 2rem;
+}
+
 .illustration {
     background-color: var(--bg-color-dark);
     width: 100%;
     height: calc(100vh - $proximity*2);
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    &__img {
+        height: 98%;
+        position: absolute;
+        right: 0;
+    }
+}
+
+.google-auth-button {
+    display: flex;
+    align-items: center;
+    background-color:#bbdefb;
+    border-radius: 50vmax;
+    font-size: 16px;
+    outline: 0;
+    border: 0;
+    gap: 1rem;
+    padding: .5rem;
+    padding-right: 4rem;
+    color: #171717;
+    font-size: 1.6rem;
+    outline: 1px solid var(--primary-color);
+    cursor: pointer;
+    transition: color .2s;
+    &__logo-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: .5rem;
+        background-color: #fff;
+        border-radius: 50%;
+        height: 45px;
+        width: 45px;
+    }
+    &__logo {
+        height: 100%;
+        width: 100%;
+    }
+    &:hover {
+        outline: 2px solid var(--primary-color);
+        color: var(--primary-color);
+    }
+}
+
+
+
+
+.wrapper mat-form-field {
+    width: 100%;
+}
+
+.card {
+    padding: .7rem;
+    border-radius: 50vmax;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    height: fit-content;
+    z-index: 2;
+    &::after {
+        content: '';
+        display: block;
+        width: calc(100% + .7rem);
+        height: calc(100% + .7rem);
+        position: absolute;
+        top: -.35rem;
+        left: -.35rem;
+        border-radius: 50vmax;
+        background-color: hsla(212, 68%, 26%, .2);
+        scale: 0;
+        z-index: 3;
+        transition: .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+    &:hover::after {
+        scale: 1;
+    }
+    &--icon {
+        @extend .card;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: hsla(174, 100%, 29%, .2);
+        color: #009688;
+    }
+    &--selected {
+        outline: 2px solid hsla(212, 68%, 26%, .6)!important;
+    }
+}
+
+.choose-wrapper {
+    display: flex;
+    gap: .5rem;
+    margin: 1rem 0;
 }

@@ -5,8 +5,8 @@ import { filter, switchMap, tap } from 'rxjs';
 import { AppointmentsService } from 'src/app/shared/data-access/appointments.service';
 import { DoctorService } from 'src/app/shared/data-access/doctor.service';
 import { getUser } from 'src/app/store/user/user.selector';
-import { AddAppointmentComponent } from '../add-appointment/add-appointment.component';
-import { AppointmentEditorComponent } from '../appointment-editor/appointment-editor.component';
+import { AddAppointmentComponent } from './add-appointment/add-appointment.component';
+import { AppointmentEditorComponent } from './appointment-editor/appointment-editor.component';
 
 @Component({
   selector: 'app-appointments',

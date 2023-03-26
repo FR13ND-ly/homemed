@@ -1,9 +1,0 @@
-<ng-container *ngIf="user$ | async as user">
-    <div *ngIf="!codeGenerated">
-        <button (click)="createInvitation(user.uid)">Create invitation link</button>
-    </div>
-    <div *ngIf="codeGenerated">
-        <h2>Code: {{ code }}</h2>
-        <p>Invite link: https:\\www.homemed\login\{{code}}</p>
-    </div>
-</ng-container>

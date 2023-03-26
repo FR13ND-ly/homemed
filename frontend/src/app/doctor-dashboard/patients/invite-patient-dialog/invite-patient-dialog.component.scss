@@ -1,0 +1,25 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 1rem 2rem;
+}
+
+.link {
+    border-bottom: 2px dotted;
+    cursor: pointer;
+    transition: .1s ease-in-out;
+    &:hover {
+        color: var(--primary-color);
+        border-bottom: 2px dotted var(--primary-color);
+    }
+}
+
+h1 {
+    margin-bottom: 1rem;
+}
+
+.wrapper {
+    margin-top: 1rem;
+    align-items: flex-start;
+}

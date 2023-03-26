@@ -12,10 +12,15 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { reducers } from './store/app.reducers';
 import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from './shared/feature/material.module';
+import { AboutComponent } from './about/about.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AboutComponent,
+    ContactUsComponent,    
   ],
   imports: [
     BrowserModule,

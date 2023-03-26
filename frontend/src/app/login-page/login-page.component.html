@@ -1,21 +1,27 @@
-<div class="primary">
-    <div class="back-button">
-        <a class="back-button__button" routerLink="/">Back on home page</a>
-    </div>
-    <h1>Welcome</h1>
-    <p>Lorem ipsum dolor sit amet</p>
-    <ng-container *ngIf="login else register">
-        <button (click)="onGoogleLogin()">Google</button>
+<div class="main">
+    <img class="logo" src="/assets/images/full_logo_b.png" routerLink="/">
+    <ng-container *ngIf="login">
+        <h1 class="page-title">Welcome</h1>
+        <p class="page-subtitle">Log in or create an account</p>
     </ng-container>
+    <div class="page-content" *ngIf="login else register">
+        <!-- <button class="google-auth-button" (click)="onGoogleLogin()">
+            <div class="google-auth-button__logo-wrapper"><img class="google-auth-button__logo" src="https://img.favpng.com/6/6/4/google-logo-computer-icons-google-logo-png-favpng-L2nAPFg47JP3AjaAdiTk7pfiT.jpg" /></div>
+            Connect with Google
+        </button> -->
+        <button class="button" (click)="onGoogleLogin()">
+            <mat-icon>login</mat-icon>
+            Connect with Google
+        </button>
+    </div>
 </div>
 <div class="illustration">
-    <p>HomeMed</p>
-    <img>
+    <img class="illustration__img" src="/assets/images/log_illustration.png">
 </div>
 <ng-template #register>
-    <div>
-        <div (click)="user.type='doctor'">Doctor</div>
-        <div (click)="user.type='patient'">Patient</div>
+    <div class="choose-wrapper">
+        <div class="card" [class.card--selected]="user.type=='doctor'" (click)="user.type='doctor'">Doctor</div>
+        <div class="card" [class.card--selected]="user.type=='patient'" (click)="user.type='patient'">Patient</div>
     </div>
     <mat-form-field appearance="outline" *ngIf="user.type == 'patient'">
         <input [(ngModel)]="user.invitationCode" matInput placeholder="Please enter invitation code">
@@ -24,10 +30,29 @@
         <mat-label>Full Name</mat-label>
         <input [(ngModel)]="user.name" matInput placeholder="Please enter your name">
     </mat-form-field>
-    <div>
+    <div class="wrapper" *ngIf="user.type == 'patient'">
         <mat-form-field appearance="outline">
-            <mat-label>Address, City</mat-label>
+            <mat-label>Available from</mat-label>
+            <mat-select [(ngModel)]="user.availableTimeStart">
+                <mat-option *ngFor="let hour of range(8, user.availableTimeEnd)" [value]="hour">
+                    {{ hour }}:00
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Available to</mat-label>
+            <mat-select [(ngModel)]="user.availableTimeEnd">
+                <mat-option *ngFor="let hour of range(user.availableTimeStart + 1, 23)" [value]="hour">
+                    {{ hour }}:00
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="wrapper">
+        <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
             <input [(ngModel)]="user.address" matInput placeholder="Please enter your address">
+            <mat-icon matSuffix>home</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>County</mat-label>
@@ -38,16 +63,28 @@
             </mat-select>
         </mat-form-field>
     </div>
-    <mat-form-field appearance="outline">
-        <mat-label>Phone number</mat-label>
-        <input [(ngModel)]="user.phone" matInput type="tel" placeholder="Please enter your phone number">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Choose a date</mat-label>
-        <input [(ngModel)]="user.birthday" matInput [matDatepicker]="picker">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <input *ngIf="user.type == 'doctor'" type="file" (input)="onUploadValidationImage($event)">
-    <button (click)="onRegister()">Register</button>
+    <section class="wrapper">
+        <mat-form-field appearance="outline">
+            <mat-label>Phone number</mat-label>
+            <input [(ngModel)]="user.phone" matInput placeholder="Please enter your phone number">
+            <mat-icon matSuffix>call</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Birthday</mat-label>
+            <input [(ngModel)]="user.birthday" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker  #picker></mat-datepicker>
+        </mat-form-field>
+    </section>
+    <div class="wrapper">
+        <button *ngIf="user.type == 'doctor'" class="button button--upload-file" (click)="validation.click()">
+            <mat-icon>upload</mat-icon>
+            Confirmation File
+        </button>
+        <input #validation style="display: none;" type="file" (input)="onUploadValidationImage($event)">
+        <button class="button" (click)="onRegister()">
+            <mat-icon>how_to_reg</mat-icon>
+            Register
+        </button>
+    </div>
 </ng-template>

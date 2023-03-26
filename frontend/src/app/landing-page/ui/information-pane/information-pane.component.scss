@@ -1,21 +1,24 @@
 :host {
     display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border-radius: 20px;
+    padding: 2rem 5rem;
 }
 
-.primary-wrapper {
-    display: grid;
+.wrapper {
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
-.secondary-wrapper {
+.card {
     display: flex;
-}
-
-.pane {
-    &__title {
-        font-weight: bold;
-    }
-    &__description {
-        font-size: 1.2rem;
-        line-height: normal;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    gap: .5rem;
+    h3, p {
+        margin: 0;
     }
 }

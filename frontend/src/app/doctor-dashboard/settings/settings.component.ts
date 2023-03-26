@@ -35,4 +35,8 @@ export class SettingsComponent {
   onChangeAvatar(e : any) {
     this.filesService.addFile(e.target.files[0]).subscribe((res: any) => this.avatarId = res)
   }
+
+  copyToClipboard(text :string) {
+    navigator.clipboard.writeText(text)
+  }
 }

@@ -31,6 +31,8 @@ export class LoginPageComponent implements OnInit {
     doctorId : "",
     county : "",
     validationImageId : "",
+    availableTimeStart : 8,
+    availableTimeEnd : 22,
     invitationCode : "",
     birthday: ""
   }
@@ -44,6 +46,8 @@ export class LoginPageComponent implements OnInit {
     })
   }
 
+  range = (start : any, stop : any) =>
+    Array(Math.ceil(stop - start)).fill(start).map((x, y) => x + y)
 
   counties = [...counties]
 
@@ -58,20 +62,20 @@ export class LoginPageComponent implements OnInit {
       }),
       switchMap((user : any) => this.userService.checkExist(user))
     ).subscribe((res : any) : any => {
-      if (res.exists) return this.router.navigate(['/dashboard/', res.type])
+      if (res.exists) return this.router.navigate(['/dashboard/', res.type, "main"])
       this.user.doctorId = res.doctorId
       this.login = false
     })
   }
 
   onUpload(e : any) {
-    this.filesService.addFile(e.target.files[0]).subscribe((res : any) => console.log(res))
+    this.filesService.addFile(e.target.files[0]).subscribe()
   }
 
   onRegister() {
     this.userService.register(this.user).subscribe((res) => {
       this.store.dispatch(loginSuccess({user: res}))
-      this.router.navigate(['/dashboard/', this.user.type])
+      this.router.navigate(['/dashboard/', this.user.type, 'main'])
     })
   }
 

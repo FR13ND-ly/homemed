@@ -19,7 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatNativeDateModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
   ]
 })
 export class MaterialModule { }

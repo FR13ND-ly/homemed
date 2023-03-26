@@ -46,4 +46,20 @@ export class DoctorService {
   getValidation(uid : any) {
     return this.http.get(`${this.apiURL}validation/${uid}/`)
   }
+
+  getDashboard(uid : any) {
+    return this.http.get(`${this.apiURL}dashboard/${uid}/`)
+  }
+
+  transferPatient(data : any) {
+    return this.http.post(`${this.apiURL}transfer/`, data)
+  }
+
+  sendEmail(data : any) {
+    return this.http.post(`${this.apiURL}email/send/`, data)
+  }
+
+  getDoctorByCounty(data: any) {
+    return this.http.post(`${this.apiURL}get-by-county/`, data)
+  }
 }

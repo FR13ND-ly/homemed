@@ -1,0 +1,14 @@
+<ng-container *ngIf="InvitationLink$ | async as InvitationLink">
+    <h1>Invite patient</h1>
+    <span class="link" matTooltip="Copy to clipboard" (click)="copyToClipboard(InvitationLink)">{{ InvitationLink }}</span>
+    <div class="wrapper">
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" [(ngModel)]="email">
+        </mat-form-field>
+        <button class="button" (click)="onSendEmail(InvitationLink)">
+            <mat-icon>send</mat-icon>
+            Invite patient
+        </button>
+    </div>
+</ng-container>

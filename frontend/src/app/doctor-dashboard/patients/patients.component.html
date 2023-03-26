@@ -1,10 +1,73 @@
-<h2>Patients Manager</h2>
-<p>Here you can manage your patients</p>
-<button (click)="openDialog()">Invite patient</button>
-<div>
-    <div [routerLink]="['/dashboard/doctor/patient', patient.uid]" *ngFor="let patient of patients$ | async">
-        <img [src]="patient.imageUrl">
-        <p>{{patient.name}}</p>
-        <p>{{patient.address}}</p>
+<h1 class="page-title">My patients</h1>
+<button class="page-action button" (click)="openDialog()">
+    <mat-icon class="button__extra">person_add</mat-icon>
+    Invite patient
+</button>
+<p class="page-subtitle">Here you can manage your patients</p>
+
+<div class="page-content wrapper">
+    <div class="user-list" *ngIf="patients$ | async as patients">
+        <img 
+        class="user" 
+        [src]="patient.imageUrl" 
+        *ngFor="let patient of patients; let i = index"
+        [class.user--selected]="i == (selectedIndex$ | async)"
+        (click)="selectedIndex$.next(i)">
+    </div>
+    <div class="medicalRecords" *ngIf="medicalRecords$ | async as patient">
+        <section class="patient card--outline">
+            <div class="patient__primary-data">
+                <img class="patient__image" [src]="patient.imageUrl">
+                <div class="patient__info">
+                    <p class="patient__name">{{patient.name}}</p>
+                    <p>{{patient.birthday | date }}</p>
+                </div>
+            </div>
+            <div>
+                <p><b>Address:</b> {{patient.address}}, {{patient.county}}</p>
+                <p><b>Email:</b> {{patient.email}}</p>
+                <p><b>Phone:</b> {{patient.phone}}</p>
+            </div>
+            <div>
+                <button class="button button--warn" (click)="onTransferPatient(patient.uid)">
+                    <mat-icon>low_priority</mat-icon>
+                    Transfer
+                </button>
+            </div>
+        </section>
+        <div class="patient__details">
+            <div class="wrapper">
+                <span class="card" [class.card--selected]="!patient.selectedIndex" (click)="onSelectDisease(0, patient)">Current Medications</span>
+                <span class="card" [class.card--selected]="patient.selectedIndex==1" (click)="onSelectDisease(1, patient)">Chronic Diseases</span>
+                <span class="card" [class.card--selected]="patient.selectedIndex==2" (click)="onSelectDisease(2, patient)">Allergies</span>
+                <span class="card" [class.card--selected]="patient.selectedIndex==3" (click)="onSelectDisease(3, patient)">Surgeries</span>
+                <span class="card" [class.card--selected]="patient.selectedIndex==4" (click)="onSelectDisease(4, patient)">Family History</span>
+                <span class="card--icon" *ngIf="!edit" (click)="edit=true"><mat-icon>edit</mat-icon></span>
+            </div>
+            <p class="patient__disease" *ngIf="!edit">{{ patient.showText | emptyText }}</p>
+            <div class="editor" *ngIf="edit">
+                <mat-form-field appearance="outline" *ngIf="!patient.selectedIndex">
+                    <mat-label>Current Medications</mat-label>
+                    <textarea matInput [(ngModel)]="patient.currentMedications"></textarea>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="patient.selectedIndex==1">
+                    <mat-label>Chronic Diseases</mat-label>
+                    <textarea matInput [(ngModel)]="patient.chronicDiseases"></textarea>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="patient.selectedIndex==2">
+                    <mat-label>Allergies</mat-label>
+                    <textarea matInput [(ngModel)]="patient.allergies"></textarea>
+                </mat-form-field>
+                <mat-form-field appearance="outline"  *ngIf="patient.selectedIndex==3">
+                    <mat-label>Surgeries</mat-label>
+                    <textarea matInput [(ngModel)]="patient.surgeries"></textarea>
+                </mat-form-field>
+                <mat-form-field appearance="outline"  *ngIf="patient.selectedIndex==4">
+                    <mat-label>Family History</mat-label>
+                    <textarea matInput [(ngModel)]="patient.familyHistory"></textarea>
+                </mat-form-field>
+                <button (click)="onUpdateChanges(patient)">Save</button>            
+            </div>
+        </div>
     </div>
 </div>

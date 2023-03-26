@@ -24,6 +24,8 @@ class Patient(models.Model):
     county = models.CharField(max_length=255)
     phone = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
+    availableTimeStart = models.PositiveIntegerField(default=8)
+    availableTimeEnd = models.PositiveIntegerField(default=22)
     doctorId = models.PositiveIntegerField(null=True)
 
 class File(models.Model):
@@ -32,6 +34,7 @@ class File(models.Model):
 
 class Appointment(models.Model):
     scheduledDate = models.DateTimeField()
+    scheduledTime = models.PositiveIntegerField(null=True)
     title = models.CharField(max_length=255)
     doctorId = models.PositiveIntegerField(null=True)
     patientId = models.PositiveIntegerField(null=True)
