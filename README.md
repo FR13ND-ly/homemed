@@ -1,43 +1,55 @@
-# homemed
+# HomeMed
 
 ## Members
 - Motricală Alin-Gabriel
-- Mihai Radu
+- Radu Mihai-Alexandru
 
 ## Video presentation
 https://www.youtube.com/watch?v=7nvfC8DQs-Y&feature=youtu.be
+
+[![Video](https://i.ytimg.com/vi/7nvfC8DQs-Y/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGD4gXyhlMA8=&rs=AOn4CLA0jEQj0r0a2H9Z7cA-EHI27cahGw)](https://www.youtube.com/watch?v=7nvfC8DQs-Y&feature=youtu.be)
 
 ## Installation
 
 To install HomeMed, follow the steps below:
 
 Clone the repository:
+```bash
 git clone https://github.com/FR13ND-ly/homemed.git
-
+```
 
 Navigate to the project directory:
+```bash
 cd homemed/frontend
-
+```
 
 Install dependencies:
+```bash
 npm install
-
+```
 
 Start the server:
+```bash
 npm start
+```
 
-Open another console, access backend directory
+Open another terminal emulator and access the backend directory:
+```bash
 cd homemed/backend
+```
 
 Install dependencies:
-pip install -r requirements:
-
+```bash
+pip install -r requirements
+```
 Start the server
+```bash
 python manage.py runserver
+```
 
 Access the application at http://localhost:3000/
 
-Usage
+## Usage
 
 HomeMed provides a simple and intuitive interface for managing patient records. The main features of the application are:
 
@@ -51,8 +63,8 @@ HomeMed provides a simple and intuitive interface for managing patient records. 
 
 To use HomeMed, simply navigate to the appropriate section of the application and use the provided forms and buttons to manage your data.
 
-Customization
+## Customization
 
 HomeMed can be customized to fit the needs of your practice. You can modify the application's interface and functionality by editing the source code.
 
-The application is built using the XYZ stack (Firebase, Angular, and Django). The frontend is built using Angular, while the backend is built using Django and Firebase.
+The application is built using the ADF stack (Angular, Firebase and Django). The frontend is built using Angular, while the backend is built using Django and Firebase.
