@@ -70,3 +70,15 @@ To use HomeMed, simply navigate to the appropriate section of the application an
 HomeMed can be customized to fit the needs of your practice. You can modify the application's interface and functionality by editing the source code.
 
 The application is built using the ADF stack (Angular, Firebase and Django). The frontend is built using Angular, while the backend is built using Django and Firebase.
+
+## Mobile Version
+![image](https://user-images.githubusercontent.com/57838113/228301515-21c6541f-4826-455a-80b1-f0101426dd98.png)
+![image](https://user-images.githubusercontent.com/57838113/228301622-467388ef-f705-40e1-afbc-1e8150ba0b9c.png)
+![image](https://user-images.githubusercontent.com/57838113/228301695-2700bfcb-7ac8-4165-a7ea-a30113593298.png)
+![image](https://user-images.githubusercontent.com/57838113/228301771-e4985591-75d3-4caf-b893-a75ccc03b216.png)
+![image](https://user-images.githubusercontent.com/57838113/228301983-062afc98-74e0-4092-a70a-f29236b9e12e.png)
+![image](https://user-images.githubusercontent.com/57838113/228302159-dc65df48-e4bf-4c3d-ae26-cc643f67f17d.png)
+![image](https://user-images.githubusercontent.com/57838113/228302218-519c6c7c-2e1f-4727-8b33-97dd3541af2e.png)
+![image](https://user-images.githubusercontent.com/57838113/228302255-d7b9c115-d97c-41be-a229-88490947a32b.png)
+![image](https://user-images.githubusercontent.com/57838113/228302286-1e2a0050-f4cd-4864-a815-e5cf30271360.png)
+
