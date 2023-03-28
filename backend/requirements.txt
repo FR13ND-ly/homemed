@@ -1,9 +1,26 @@
 asgiref==3.6.0
 backports.zoneinfo==0.2.1
+boto3==1.26.99
+botocore==1.29.99
+certifi==2022.12.7
+charset-normalizer==3.1.0
 Django==4.1.7
 django-cors-headers==3.14.0
+django-ses==3.3.0
 djangorestframework==3.14.0
+ElasticEmail==4.0.23
+-e git+https://github.com/muepsilon/elasticemail-django@1dad468041bf0e4e9bf9ac8260fcbf95c8c58a22#egg=elasticemail_django
+idna==3.4
+jmespath==1.0.1
 Pillow==9.4.0
+python-dateutil==2.8.2
+python-http-client==3.3.7
 pytz==2022.7.1
+requests==2.28.2
+s3transfer==0.6.0
+sendgrid==6.10.0
+six==1.16.0
 sqlparse==0.4.3
+starkbank-ecdsa==2.2.0
 tzdata==2022.7
+urllib3==1.26.15
