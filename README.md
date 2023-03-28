@@ -1,4 +1,6 @@
 # HomeMed
+HomeMed is a platform designed for doctors and patients to manage medical records, appointments, and consultations. This document will provide technical and design requirements for the application.
+
 
 ## Members
 - Motricală Alin-Gabriel
