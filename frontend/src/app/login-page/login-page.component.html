@@ -51,7 +51,7 @@
     <div class="wrapper">
         <mat-form-field appearance="outline">
             <mat-label>Address</mat-label>
-            <input [(ngModel)]="user.address" matInput placeholder="Please enter your address">
+            <input [(ngModel)]="user.address" type="email" matInput placeholder="Please enter your address">
             <mat-icon matSuffix>home</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -66,7 +66,7 @@
     <section class="wrapper">
         <mat-form-field appearance="outline">
             <mat-label>Phone number</mat-label>
-            <input [(ngModel)]="user.phone" matInput placeholder="Please enter your phone number">
+            <input [(ngModel)]="user.phone" type="tel" matInput placeholder="Please enter your phone number">
             <mat-icon matSuffix>call</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">

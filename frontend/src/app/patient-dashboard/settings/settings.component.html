@@ -1,5 +1,5 @@
 <h1 class="page-title">User information</h1>
-<p class="page-subtitle">Here you can update your user information. It may take some time updates to apply</p>
+<p class="page-subtitle">Here you can update your user information.<br> It may take some time updates to apply</p>
 <div class="page-content" *ngIf="patient$ | async as patient">
     <mat-form-field appearance="outline">
         <mat-label>Full Name</mat-label>
@@ -51,7 +51,7 @@
             <mat-datepicker  #picker></mat-datepicker>
         </mat-form-field>
     </section>
-    <div class="wrapper">
+    <div class="buttons wrapper">
         <button class="button button--upload-file" (click)="avatar.click()">
             <mat-icon>upload</mat-icon>
             Change profile photo

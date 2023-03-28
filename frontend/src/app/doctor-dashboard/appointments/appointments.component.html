@@ -1,9 +1,9 @@
 <h1 class="page-title">Appointments</h1>
+<p class="page-subtitle">Here you can manage your schedule</p>
 <button class="page-action button" (click)="onAddAppointment()">
     <mat-icon>assignment_add</mat-icon>
     Add appointment
 </button>
-<p class="page-subtitle">Here you can manage your schedule</p>
 <div class="page-content">
     <div class="appointments">
         <article class="appointment card" [class.appointment--important]="appointment.important" *ngFor="let appointment of appointments$ | async">

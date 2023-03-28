@@ -1,9 +1,14 @@
+@use 'src/assets/scss/utils' as *;
+
 :host {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     border-radius: 20px;
     padding: 2rem 5rem;
+    @include mq(small) {
+        padding: 2rem 1rem;
+    }
 }
 
 .wrapper {

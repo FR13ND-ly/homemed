@@ -1,3 +1,5 @@
+@use 'src/assets/scss/utils' as *;
+
 :host {
     width: 100%;
     gap: .5rem;
@@ -20,4 +22,8 @@
     height: 45px;
     width: 45px;
     border-radius: 50%;
+    @include mq(small) {
+        height: 32px;
+        width: 32px;
+    }
 }

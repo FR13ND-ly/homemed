@@ -35,6 +35,7 @@ urlpatterns = [
     path('doctor/consultations/delete/<int:id>/', views.delete_consultation),
     #invitations
     path('invitations/create/<str:uid>/', views.create_invitation),
+    path('invitations/check/<str:code>/', views.check_invitation),
     #files
     path('files/upload/', views.upload_file),
 ]

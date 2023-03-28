@@ -1,3 +1,5 @@
+@use 'src/assets/scss/utils' as *;
+
 :host {
     display: flex;
     box-sizing: border-box;
@@ -6,6 +8,10 @@
     height: 100vh;
     overflow: hidden;
     width: 100%;
+    @include mq(small) {
+        gap: 1.5rem;
+        padding: 0;
+    } 
 }
 
 .pattern { 
@@ -30,6 +36,10 @@
     width: 100%;
     position: relative;
     height: calc(100vh - 4rem);
+    @include mq(small) {
+        padding-top: 1rem;
+        padding-right: 1rem;
+    }
 }
 
 main {

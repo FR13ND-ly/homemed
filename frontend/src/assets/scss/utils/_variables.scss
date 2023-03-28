@@ -1,7 +1,12 @@
+@use 'mixins' as *;
+
 :root {
     --bg-color-dark : #1C282F;
     --bg-color-dark-lighter : #475a64;
     --primary-color: #2196f3;
     --accent-color: teal;
     --border-radius: 20px;
+    @include mq(small) {
+        --border-radius: 0px;
+    } 
 }

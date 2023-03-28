@@ -1,6 +1,16 @@
+@use 'src/assets/scss/utils' as *;
+
 * {
     font-family: 'Inter', 'Courier New', Courier, monospace;
     color: #171717;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    @include mq(small) {
+        padding: 0 1rem;
+    } 
 }
 
 .title {
@@ -9,11 +19,17 @@
     span {
         color: #375974;
     }
+    @include mq(small) {
+        font-size: 2.6rem;
+    } 
 }
 
 .description {
     margin: .5rem 0;
     font-size: 1.4rem;
+    @include mq(small) {
+        font-size: 1rem;
+    } 
 }
 
 
@@ -24,6 +40,10 @@
     width: 100%;
     gap: 6rem;
     margin-top: 2rem;
+    @include mq(small) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem
+    } 
 }
 
 .pane {
@@ -44,4 +64,12 @@
         width: 100%;
         align-self: center;
     }
+    @include mq(small) {
+        &__title {
+            font-size: 2rem;
+        }
+        &__description {
+            width: 100%;
+        }
+    } 
 }

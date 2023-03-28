@@ -1,3 +1,5 @@
+@use 'src/assets/scss/utils' as *;
+
 :host {
     display: flex;
     flex-direction: column;
@@ -10,6 +12,10 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
+    @include mq(small) {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .appointment {

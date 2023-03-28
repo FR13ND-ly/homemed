@@ -1,3 +1,5 @@
+@use 'src/assets/scss/utils' as *;
+
 $icon-size: 4.2rem;
 
 .info-pane {
@@ -30,6 +32,13 @@ $icon-size: 4.2rem;
             text-decoration: underline;
         }
     }
+}
+
+.wrapper {
+    @include mq(small) {
+        width: fit-content;
+        flex-direction: column;
+    } 
 }
 
 .mark {

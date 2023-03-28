@@ -1,6 +1,6 @@
 <h1 class="page-title">User information</h1>
 <p class="page-subtitle" *ngIf="user$ | async as user">
-    Your doctor code: 
+    Your doctor code:<br>
     <span class="code" matTooltip="Copy to clipboard" (click)="copyToClipboard(user.uid)">{{ user.uid }}</span>
 </p>
 <div class="page-content" *ngIf="doctor$ | async as doctor">
@@ -26,7 +26,7 @@
     <section class="wrapper">
         <mat-form-field appearance="outline">
             <mat-label>Phone number</mat-label>
-            <input [(ngModel)]="doctor.phone" matInput placeholder="Please enter your phone number">
+            <input [(ngModel)]="doctor.phone" type="tel" matInput placeholder="Please enter your phone number">
             <mat-icon matSuffix>call</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -36,7 +36,7 @@
             <mat-datepicker  #picker></mat-datepicker>
         </mat-form-field>
     </section>
-    <div class="wrapper">
+    <div class="wrapper buttons">
         <button class="button button--upload-file" (click)="avatar.click()">
             <mat-icon>upload</mat-icon>
             Change profile photo

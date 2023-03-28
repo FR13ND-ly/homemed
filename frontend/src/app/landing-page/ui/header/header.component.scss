@@ -1,3 +1,5 @@
+@use 'src/assets/scss/utils' as *;
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -7,5 +9,8 @@
     &__logo {
         height: 100%;
         width: fit-content;
+    }
+    @include mq(small) {
+        padding: 0 1rem;
     }
 }

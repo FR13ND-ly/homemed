@@ -1,10 +1,9 @@
 <h1 class="page-title">My patients</h1>
+<p class="page-subtitle">Here you can manage your patients</p>
 <button class="page-action button" (click)="openDialog()">
     <mat-icon class="button__extra">person_add</mat-icon>
     Invite patient
 </button>
-<p class="page-subtitle">Here you can manage your patients</p>
-
 <div class="page-content wrapper">
     <div class="user-list" *ngIf="patients$ | async as patients">
         <img 
@@ -14,13 +13,13 @@
         [class.user--selected]="i == (selectedIndex$ | async)"
         (click)="selectedIndex$.next(i)">
     </div>
-    <div class="medicalRecords" *ngIf="medicalRecords$ | async as patient">
+    <div class="medical-records" *ngIf="medicalRecords$ | async as patient">
         <section class="patient card--outline">
             <div class="patient__primary-data">
                 <img class="patient__image" [src]="patient.imageUrl">
                 <div class="patient__info">
                     <p class="patient__name">{{patient.name}}</p>
-                    <p>{{patient.birthday | date }}</p>
+                    <p class="patient__birthday">{{patient.birthday | date }}</p>
                 </div>
             </div>
             <div>
@@ -66,7 +65,12 @@
                     <mat-label>Family History</mat-label>
                     <textarea matInput [(ngModel)]="patient.familyHistory"></textarea>
                 </mat-form-field>
-                <button (click)="onUpdateChanges(patient)">Save</button>            
+                <div class="wrapper">
+                    <button class="button" (click)="onUpdateChanges(patient)">
+                        <mat-icon>done</mat-icon>
+                        Save
+                    </button>
+                </div>            
             </div>
         </div>
     </div>

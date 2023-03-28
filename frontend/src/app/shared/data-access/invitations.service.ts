@@ -14,4 +14,8 @@ export class InvitationsService {
   createInvitation(uid : any) {
     return this.http.get(`${this.APIUrl}create/${uid}/`)
   }
+
+  checkInvitation(code : any) {
+    return this.http.get(`${this.APIUrl}check/${code}/`)
+  }
 }

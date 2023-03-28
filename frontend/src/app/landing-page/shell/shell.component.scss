@@ -1,6 +1,12 @@
+@use 'src/assets/scss/utils' as *;
+
 :host {
     display: flex;
     flex-direction: column;
     padding: 2rem 6rem;
     gap: 1rem;
+    @include mq(large) {
+        padding: 1rem 0;
+        padding-bottom: 0;
+    } 
 }

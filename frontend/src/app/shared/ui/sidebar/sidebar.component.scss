@@ -1,3 +1,5 @@
+@use 'src/assets/scss/utils' as *;
+
 :host {
     display: flex;
     flex-direction: column;
@@ -8,17 +10,25 @@
     padding: 1rem 3rem 2rem 2rem;
     border-radius: var(--border-radius);
     background-color: var(--bg-color-dark);
+    @include mq(small) {
+        padding: 1rem;
+        padding-top: 2rem;
+    }
 }
 
 .logo {
     cursor: pointer;
     width: 13rem;
     margin: 1rem 0 1.7rem;
+    @include mq(small) {
+        display: none;
+    } 
 }
 
 .disabled {
     pointer-events: none;
     cursor: default;
+    color: grey;
 }
 
 .menu {
@@ -53,6 +63,9 @@
             transform: scaleX(0);
             transform-origin: left;
         }
+        @include mq(small) {
+            display: none;
+        } 
     }
     &:hover { 
         .item__name::after {

@@ -13,19 +13,19 @@ import PIL
 import random 
 import string
 import datetime
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 URL="http://127.0.0.1:8000/"
 
 @csrf_exempt
 def send_email(request):
     data = JSONParser().parse(request)
-    email = EmailMessage(
+    send_mail(
         data['subject'],
         data['content'],
-        'Motricală Alin-Gabriel <postmaster@sandbox8fd69166223e491e808c05d5d87b2f9d.mailgun.org>',
+        'motricala44@gmail.com',
         [data['recipient']],
+        fail_silently=False,
     )
-    email.send()
     return JsonResponse({"success" : True})
 
 @csrf_exempt
@@ -132,6 +132,7 @@ def get_doctors_by_county(request):
             "id" : doctor.id,
             "name" : profile.name,
             "email" : doctor.email,
+            "patientsCount" : Patient.objects.filter(doctorId=doctor.id).count(),
         })
     return JsonResponse(response, safe=False)
 
@@ -356,6 +357,9 @@ def create_invitation(request, uid):
     invitation.save()
     return JsonResponse(invitation.code, safe=False)
 
+def check_invitation(request, code):
+    success = Invitation.objects.filter(code=code).exists()
+    return JsonResponse({"success" : success})
 
 def get_consultations(request, id):
     consultations = Consultation.objects.filter(patientId=id)

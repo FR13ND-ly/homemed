@@ -4,7 +4,7 @@ $media-queries:(
     "small": 600px
 );
 
-@mixin media-query($break-point) {
+@mixin mq($break-point) {
     @media (max-width: map-get($media-queries, $break-point)) { 
         @content; 
     }
