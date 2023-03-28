@@ -4,7 +4,7 @@
 - Motricală Alin-Gabriel
 - Mihai Radu
 
-## Video presentatio
+## Video presentation
 https://www.youtube.com/watch?v=7nvfC8DQs-Y&feature=youtu.be
 
 ## Installation
